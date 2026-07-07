@@ -1,0 +1,32 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Training artifacts
+checkpoints/
+logs/
+outputs/
+*.pt
+*.pth
+*.ckpt
+
+# Datasets (large — prepare locally; see data/README.md)
+data/*
+!data/README.md
+
+# Paper PDF (use NeurIPS link in README)
+paper/
+
+# Secrets
+.env
+.env.*
+*.pem
