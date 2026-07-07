@@ -1,0 +1,4 @@
+2026-07-08 06:25:42 | INFO | Experiment: smap_a1_ws100_ep1_20260708_062542
+2026-07-08 06:25:42 | INFO | Dataset: SMAP
+2026-07-08 06:25:42 | INFO | Entity: A-1
+2026-07-08 06:25:42 | INFO | Config | window=100 | val_ratio=0.30 | val_split=True | epochs=1 | device=cpu | eval_only=False

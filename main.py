@@ -26,6 +26,7 @@ from thoc.data import (
     get_dataset_defaults,
     load_dataset,
     make_dataset_splits,
+    resolve_val_ratio,
 )
 from thoc.logger import save_json, setup_logger
 from thoc.model import THOC
@@ -79,7 +80,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--window_size", type=int, default=None)
     parser.add_argument("--stride", type=int, default=None)
     parser.add_argument("--test_stride", type=int, default=None)
-    parser.add_argument("--val_ratio", type=float, default=0.3)
+    parser.add_argument(
+        "--val_ratio",
+        type=float,
+        default=None,
+        help="validation 비율 (SMAP/SMD: test 앞, NeurIPS-TS: abnormal 앞; 기본 SMAP/SMD=0.15, NeurIPS=0.3)",
+    )
     parser.add_argument(
         "--no_val_split",
         action="store_true",
@@ -161,6 +167,7 @@ def run_training(
     exp_output_dir = os.path.join(args.output_dir, exp_name)
 
     train_x, train_y, test_x, test_y = load_dataset(args.dataset, data_dir)
+    val_ratio = resolve_val_ratio(args.dataset, args.val_ratio)
 
     if args.no_val_split:
         splits = make_dataset_splits(
@@ -169,7 +176,7 @@ def run_training(
         val_x, val_y = None, None
     else:
         splits = make_dataset_splits(
-            args.dataset, train_x, train_y, test_x, test_y, val_ratio=args.val_ratio
+            args.dataset, train_x, train_y, test_x, test_y, val_ratio=val_ratio
         )
         val_x, val_y = splits.val_x, splits.val_y
 
@@ -385,7 +392,7 @@ def main() -> None:
     logger.info(
         "Config | window=%d | val_ratio=%.2f | val_split=%s | epochs=%d | device=%s | eval_only=%s",
         window_size,
-        args.val_ratio,
+        resolve_val_ratio(args.dataset, args.val_ratio),
         not args.no_val_split,
         args.epochs,
         device,

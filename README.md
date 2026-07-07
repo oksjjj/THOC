@@ -31,20 +31,14 @@ python main.py --dataset NeurIPS-TS-MUL --epochs 30
 
 논문 설정: `window_size=100`, `test_stride=100` (기본값으로 적용됨)
 
-논문 §4.1 프로토콜 (기본 활성화):
-- train: train 시계열 앞 70%
-- validation: train 시계열 뒤 30% holdout (F1·threshold·HP 선택)
-- test: test 시계열 **전체** (최종 평가)
+SMAP/SMD 분할 (기본):
+- train: train 시계열 **전체** (one-class 학습)
+- validation: test 시계열 **앞 15%** (F1·threshold·HP 선택)
+- test: test 시계열 **나머지 85%** (최종 평가)
 
 ```bash
-# 기본 학습 (validation F1-PA 기준 checkpoint)
-python main.py --dataset SMAP --epochs 30
-
-# lr, λ_orth, λ_TSS 그리드 서치 → 최적 조합으로 재학습
-python main.py --dataset SMAP --tune --tune_epochs 15 --epochs 30
-
-# 하이퍼파라미터 직접 지정
-python main.py --dataset SMAP --lr 5e-4 --lambda_orth 0.1 --lambda_tss 0.1 --epochs 30
+python main.py --dataset SMAP --epochs 30 --device mps
+python main.py --dataset SMAP --val_ratio 0.15 --tune --tune_epochs 5 --epochs 30 --device mps
 ```
 
 ### SMD (Server Machine Dataset)

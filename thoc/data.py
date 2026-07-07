@@ -24,8 +24,19 @@ from torch.utils.data import DataLoader, Dataset
 DatasetName = Literal["NeurIPS-TS-UNI", "NeurIPS-TS-MUL", "SMAP", "SMD"]
 ScalerName = Literal["std", "minmax"]
 
-# 논문 §4.1: SMAP/MSL/SMD — training data 30% holdout → validation, test 는 전체 사용
+# SMAP/SMD: train 전체 + test 앞 val_ratio → validation (라벨 있음), test 나머지 → 최종 평가
 VAL_SPLIT_DATASETS: frozenset[str] = frozenset({"SMAP", "SMD"})
+DEFAULT_VAL_RATIO: dict[str, float] = {"SMAP": 0.15, "SMD": 0.15}
+NEURIPS_VAL_RATIO: float = 0.3
+
+
+def resolve_val_ratio(dataset: str, val_ratio: float | None) -> float:
+    """데이터셋별 validation 비율 기본값."""
+    if val_ratio is not None:
+        return val_ratio
+    if dataset in VAL_SPLIT_DATASETS:
+        return DEFAULT_VAL_RATIO.get(dataset, 0.15)
+    return NEURIPS_VAL_RATIO
 
 
 @dataclass(frozen=True)
@@ -124,10 +135,10 @@ class DatasetSplits:
     """
     논문 Table 1 프로토콜에 맞춘 train / validation / test 분할.
 
-    SMAP·SMD (§4.1, OmniAnomaly [28] 계열):
-      - train: train 시계열 앞 70% (one-class 학습)
-      - val:   train 시계열 뒤 30% holdout (F1·threshold·HP 선택)
-      - test:  test 시계열 전체 (최종 평가)
+    SMAP·SMD:
+      - train: train 시계열 전체 (one-class 학습)
+      - val:   test 시계열 앞 val_ratio (F1·threshold·HP 선택, 라벨 있음)
+      - test:  test 시계열 나머지 (최종 평가)
 
     NeurIPS-TS:
       - train: normal 전체
@@ -152,8 +163,8 @@ def temporal_split(
     """
     시계열을 시간 순서를 유지한 채 train / validation 으로 분할.
 
-    val_position="end":  [train | val]  — 논문 SMAP/MSL: train 70% + validation 30% holdout
-    val_position="start": [val | test] — NeurIPS-TS 등 abnormal 구간 분할
+    val_position="end":  [train | val]
+    val_position="start": [val | test] — SMAP/SMD·NeurIPS-TS validation 분할
     """
     if not 0.0 < val_ratio < 1.0:
         raise ValueError(f"val_ratio must be in (0, 1), got {val_ratio}")
@@ -173,19 +184,19 @@ def make_dataset_splits(
     val_ratio: float = 0.3,
 ) -> DatasetSplits:
     """
-    데이터셋별 논문 프로토콜 분할.
+    데이터셋별 train / validation / test 분할.
 
-    §4.1 (SMAP/MSL): training data 의 30% 를 validation 으로 holdout.
-    test set 은 분할하지 않고 전체를 최종 평가에 사용 (Table 1 #testing).
+    SMAP·SMD: train 전체, test 앞 val_ratio → val, test 나머지 → test.
+    NeurIPS-TS: normal 전체 train, abnormal 앞 val_ratio → val, 나머지 → test.
     """
     if val_ratio <= 0:
         return DatasetSplits(train_x, train_y, test_x, test_y)
 
     if dataset in VAL_SPLIT_DATASETS:
-        tr_x, tr_y, val_x, val_y = temporal_split(
-            train_x, train_y, val_ratio=val_ratio, val_position="end"
+        val_x, val_y, te_x, te_y = temporal_split(
+            test_x, test_y, val_ratio=val_ratio, val_position="start"
         )
-        return DatasetSplits(tr_x, tr_y, test_x, test_y, val_x=val_x, val_y=val_y)
+        return DatasetSplits(train_x, train_y, te_x, te_y, val_x=val_x, val_y=val_y)
 
     if dataset in ("NeurIPS-TS-UNI", "NeurIPS-TS-MUL"):
         val_x, val_y, te_x, te_y = temporal_split(

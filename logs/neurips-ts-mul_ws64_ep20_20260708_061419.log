@@ -1,0 +1,1039 @@
+2026-07-08 06:14:19 | INFO | Experiment: neurips-ts-mul_ws64_ep20_20260708_061419
+2026-07-08 06:14:19 | INFO | Dataset: NeurIPS-TS-MUL
+2026-07-08 06:14:19 | INFO | Config | window=64 | val_ratio=0.30 | val_split=True | epochs=20 | device=mps | eval_only=False
+2026-07-08 06:14:19 | INFO | Hyperparameter tuning | 36 combinations | tune_epochs=5
+2026-07-08 06:14:19 | INFO | === Tune 1/36 | lr=0.0001 | lambda_orth=0.01 | lambda_tss=0.01 ===
+2026-07-08 06:14:19 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:14:19 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:14:19 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:14:19 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:14:22 | INFO | Epoch 1/5 | loss=0.2141 | L_THOC=0.1787 | L_orth=2.6862 | L_TSS=0.8535 | val_f1_pa=0.4213 | val_threshold=0.1723
+2026-07-08 06:14:22 | INFO | Saved best checkpoint (val_f1_pa=0.4213): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.01_20260708_061419/best.pt
+2026-07-08 06:14:24 | INFO | Epoch 2/5 | loss=0.2006 | L_THOC=0.1663 | L_orth=2.5964 | L_TSS=0.8338 | val_f1_pa=0.4213 | val_threshold=0.1588
+2026-07-08 06:14:25 | INFO | Epoch 3/5 | loss=0.1830 | L_THOC=0.1498 | L_orth=2.5080 | L_TSS=0.8152 | val_f1_pa=0.4341 | val_threshold=0.1375
+2026-07-08 06:14:25 | INFO | Saved best checkpoint (val_f1_pa=0.4341): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.01_20260708_061419/best.pt
+2026-07-08 06:14:26 | INFO | Epoch 4/5 | loss=0.1584 | L_THOC=0.1262 | L_orth=2.4201 | L_TSS=0.7977 | val_f1_pa=0.4305 | val_threshold=0.1153
+2026-07-08 06:14:28 | INFO | Epoch 5/5 | loss=0.1400 | L_THOC=0.1089 | L_orth=2.3332 | L_TSS=0.7772 | val_f1_pa=0.4329 | val_threshold=0.1028
+2026-07-08 06:14:28 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.01_20260708_061419/train_history.json
+2026-07-08 06:14:28 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.01_20260708_061419/best.pt
+2026-07-08 06:14:29 | INFO |   threshold: 0.1379
+2026-07-08 06:14:29 | INFO |   auc: 0.5515
+2026-07-08 06:14:29 | INFO |   accuracy: 0.7086
+2026-07-08 06:14:29 | INFO |   precision: 0.2500
+2026-07-08 06:14:29 | INFO |   recall: 0.2083
+2026-07-08 06:14:29 | INFO |   f1: 0.2273
+2026-07-08 06:14:29 | INFO |   accuracy_pa: 0.7771
+2026-07-08 06:14:29 | INFO |   precision_pa: 0.4643
+2026-07-08 06:14:29 | INFO |   recall_pa: 0.5417
+2026-07-08 06:14:29 | INFO |   f1_pa: 0.5000
+2026-07-08 06:14:29 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:14:29 | INFO |   (ref) val_threshold=0.1375 on test → f1_pa=0.4152
+2026-07-08 06:14:29 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.01_20260708_061419/results.json
+2026-07-08 06:14:29 | INFO | === Tune 2/36 | lr=0.0001 | lambda_orth=0.01 | lambda_tss=0.1 ===
+2026-07-08 06:14:29 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:14:29 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:14:29 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:14:29 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:14:30 | INFO | Epoch 1/5 | loss=0.2921 | L_THOC=0.1811 | L_orth=2.5419 | L_TSS=0.8557 | val_f1_pa=0.4684 | val_threshold=0.1749
+2026-07-08 06:14:30 | INFO | Saved best checkpoint (val_f1_pa=0.4684): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.1_20260708_061429/best.pt
+2026-07-08 06:14:32 | INFO | Epoch 2/5 | loss=0.2754 | L_THOC=0.1682 | L_orth=2.4519 | L_TSS=0.8272 | val_f1_pa=0.4247 | val_threshold=0.1607
+2026-07-08 06:14:33 | INFO | Epoch 3/5 | loss=0.2550 | L_THOC=0.1519 | L_orth=2.3630 | L_TSS=0.7945 | val_f1_pa=0.4259 | val_threshold=0.1416
+2026-07-08 06:14:34 | INFO | Epoch 4/5 | loss=0.2290 | L_THOC=0.1312 | L_orth=2.2745 | L_TSS=0.7509 | val_f1_pa=0.4286 | val_threshold=0.1216
+2026-07-08 06:14:36 | INFO | Epoch 5/5 | loss=0.2052 | L_THOC=0.1152 | L_orth=2.1857 | L_TSS=0.6817 | val_f1_pa=0.4333 | val_threshold=0.1095
+2026-07-08 06:14:36 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.1_20260708_061429/train_history.json
+2026-07-08 06:14:36 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.1_20260708_061429/best.pt
+2026-07-08 06:14:36 | WARNING | Validation threshold 0.1749 flags 0/700 test points (test score max=0.1749). Using test_best_f1_pa for final metrics.
+2026-07-08 06:14:36 | INFO |   threshold: 0.1746
+2026-07-08 06:14:36 | INFO |   auc: 0.4243
+2026-07-08 06:14:36 | INFO |   accuracy: 0.6029
+2026-07-08 06:14:36 | INFO |   precision: 0.1748
+2026-07-08 06:14:36 | INFO |   recall: 0.2500
+2026-07-08 06:14:36 | INFO |   f1: 0.2057
+2026-07-08 06:14:36 | INFO |   accuracy_pa: 0.6714
+2026-07-08 06:14:36 | INFO |   precision_pa: 0.3307
+2026-07-08 06:14:36 | INFO |   recall_pa: 0.5833
+2026-07-08 06:14:36 | INFO |   f1_pa: 0.4221
+2026-07-08 06:14:36 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:14:36 | INFO |   (ref) val_threshold=0.1749 on test → f1_pa=0.0000
+2026-07-08 06:14:36 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.1_20260708_061429/results.json
+2026-07-08 06:14:36 | INFO | === Tune 3/36 | lr=0.0001 | lambda_orth=0.01 | lambda_tss=0.5 ===
+2026-07-08 06:14:36 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:14:36 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:14:36 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:14:36 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:14:37 | INFO | Epoch 1/5 | loss=0.6308 | L_THOC=0.1818 | L_orth=2.6946 | L_TSS=0.8441 | val_f1_pa=0.5000 | val_threshold=0.1749
+2026-07-08 06:14:37 | INFO | Saved best checkpoint (val_f1_pa=0.5000): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.5_20260708_061436/best.pt
+2026-07-08 06:14:39 | INFO | Epoch 2/5 | loss=0.6016 | L_THOC=0.1687 | L_orth=2.6000 | L_TSS=0.8138 | val_f1_pa=0.5087 | val_threshold=0.1607
+2026-07-08 06:14:39 | INFO | Saved best checkpoint (val_f1_pa=0.5087): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.5_20260708_061436/best.pt
+2026-07-08 06:14:40 | INFO | Epoch 3/5 | loss=0.5654 | L_THOC=0.1526 | L_orth=2.5076 | L_TSS=0.7754 | val_f1_pa=0.4620 | val_threshold=0.1422
+2026-07-08 06:14:41 | INFO | Epoch 4/5 | loss=0.5158 | L_THOC=0.1332 | L_orth=2.4167 | L_TSS=0.7168 | val_f1_pa=0.4225 | val_threshold=0.1230
+2026-07-08 06:14:43 | INFO | Epoch 5/5 | loss=0.4485 | L_THOC=0.1166 | L_orth=2.3264 | L_TSS=0.6172 | val_f1_pa=0.4180 | val_threshold=0.1100
+2026-07-08 06:14:43 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.5_20260708_061436/train_history.json
+2026-07-08 06:14:43 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.5_20260708_061436/best.pt
+2026-07-08 06:14:43 | INFO |   threshold: 0.1609
+2026-07-08 06:14:43 | INFO |   auc: 0.4930
+2026-07-08 06:14:43 | INFO |   accuracy: 0.7757
+2026-07-08 06:14:43 | INFO |   precision: 0.3333
+2026-07-08 06:14:43 | INFO |   recall: 0.0903
+2026-07-08 06:14:43 | INFO |   f1: 0.1421
+2026-07-08 06:14:43 | INFO |   accuracy_pa: 0.8443
+2026-07-08 06:14:43 | INFO |   precision_pa: 0.7011
+2026-07-08 06:14:43 | INFO |   recall_pa: 0.4236
+2026-07-08 06:14:43 | INFO |   f1_pa: 0.5281
+2026-07-08 06:14:43 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:14:43 | INFO |   (ref) val_threshold=0.1607 on test → f1_pa=0.3451
+2026-07-08 06:14:43 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss0.5_20260708_061436/results.json
+2026-07-08 06:14:43 | INFO | === Tune 4/36 | lr=0.0001 | lambda_orth=0.01 | lambda_tss=1 ===
+2026-07-08 06:14:43 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:14:43 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:14:43 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:14:43 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:14:44 | INFO | Epoch 1/5 | loss=1.0567 | L_THOC=0.1758 | L_orth=2.7537 | L_TSS=0.8533 | val_f1_pa=0.4291 | val_threshold=0.1699
+2026-07-08 06:14:44 | INFO | Saved best checkpoint (val_f1_pa=0.4291): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss1_20260708_061443/best.pt
+2026-07-08 06:14:46 | INFO | Epoch 2/5 | loss=1.0146 | L_THOC=0.1642 | L_orth=2.6600 | L_TSS=0.8239 | val_f1_pa=0.4169 | val_threshold=0.1573
+2026-07-08 06:14:47 | INFO | Epoch 3/5 | loss=0.9648 | L_THOC=0.1510 | L_orth=2.5676 | L_TSS=0.7882 | val_f1_pa=0.4169 | val_threshold=0.1430
+2026-07-08 06:14:48 | INFO | Epoch 4/5 | loss=0.8946 | L_THOC=0.1356 | L_orth=2.4763 | L_TSS=0.7342 | val_f1_pa=0.4169 | val_threshold=0.1272
+2026-07-08 06:14:50 | INFO | Epoch 5/5 | loss=0.7856 | L_THOC=0.1200 | L_orth=2.3863 | L_TSS=0.6417 | val_f1_pa=0.4213 | val_threshold=0.1138
+2026-07-08 06:14:50 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss1_20260708_061443/train_history.json
+2026-07-08 06:14:50 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss1_20260708_061443/best.pt
+2026-07-08 06:14:50 | INFO |   threshold: 0.1701
+2026-07-08 06:14:50 | INFO |   auc: 0.5697
+2026-07-08 06:14:50 | INFO |   accuracy: 0.8071
+2026-07-08 06:14:50 | INFO |   precision: 0.8000
+2026-07-08 06:14:50 | INFO |   recall: 0.0833
+2026-07-08 06:14:50 | INFO |   f1: 0.1509
+2026-07-08 06:14:50 | INFO |   accuracy_pa: 0.8629
+2026-07-08 06:14:50 | INFO |   precision_pa: 0.9444
+2026-07-08 06:14:50 | INFO |   recall_pa: 0.3542
+2026-07-08 06:14:50 | INFO |   f1_pa: 0.5152
+2026-07-08 06:14:50 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:14:50 | INFO |   (ref) val_threshold=0.1699 on test → f1_pa=0.4664
+2026-07-08 06:14:50 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.01_tss1_20260708_061443/results.json
+2026-07-08 06:14:50 | INFO | === Tune 5/36 | lr=0.0001 | lambda_orth=0.1 | lambda_tss=0.01 ===
+2026-07-08 06:14:50 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:14:50 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:14:50 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:14:50 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:14:51 | INFO | Epoch 1/5 | loss=0.4595 | L_THOC=0.1835 | L_orth=2.6752 | L_TSS=0.8535 | val_f1_pa=0.4892 | val_threshold=0.1785
+2026-07-08 06:14:51 | INFO | Saved best checkpoint (val_f1_pa=0.4892): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.01_20260708_061450/best.pt
+2026-07-08 06:14:53 | INFO | Epoch 2/5 | loss=0.4364 | L_THOC=0.1733 | L_orth=2.5479 | L_TSS=0.8345 | val_f1_pa=0.4379 | val_threshold=0.1668
+2026-07-08 06:14:54 | INFO | Epoch 3/5 | loss=0.4083 | L_THOC=0.1578 | L_orth=2.4235 | L_TSS=0.8176 | val_f1_pa=0.4293 | val_threshold=0.1459
+2026-07-08 06:14:55 | INFO | Epoch 4/5 | loss=0.3706 | L_THOC=0.1323 | L_orth=2.3019 | L_TSS=0.8040 | val_f1_pa=0.4290 | val_threshold=0.1208
+2026-07-08 06:14:57 | INFO | Epoch 5/5 | loss=0.3401 | L_THOC=0.1140 | L_orth=2.1830 | L_TSS=0.7878 | val_f1_pa=0.4371 | val_threshold=0.1084
+2026-07-08 06:14:57 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.01_20260708_061450/train_history.json
+2026-07-08 06:14:57 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.01_20260708_061450/best.pt
+2026-07-08 06:14:57 | INFO |   threshold: 0.1787
+2026-07-08 06:14:57 | INFO |   auc: 0.4714
+2026-07-08 06:14:57 | INFO |   accuracy: 0.7114
+2026-07-08 06:14:57 | INFO |   precision: 0.2315
+2026-07-08 06:14:57 | INFO |   recall: 0.1736
+2026-07-08 06:14:57 | INFO |   f1: 0.1984
+2026-07-08 06:14:57 | INFO |   accuracy_pa: 0.7743
+2026-07-08 06:14:57 | INFO |   precision_pa: 0.4539
+2026-07-08 06:14:57 | INFO |   recall_pa: 0.4792
+2026-07-08 06:14:57 | INFO |   f1_pa: 0.4662
+2026-07-08 06:14:57 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:14:57 | INFO |   (ref) val_threshold=0.1785 on test → f1_pa=0.3593
+2026-07-08 06:14:57 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.01_20260708_061450/results.json
+2026-07-08 06:14:57 | INFO | === Tune 6/36 | lr=0.0001 | lambda_orth=0.1 | lambda_tss=0.1 ===
+2026-07-08 06:14:57 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:14:57 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:14:57 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:14:57 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:14:58 | INFO | Epoch 1/5 | loss=0.5353 | L_THOC=0.1784 | L_orth=2.7240 | L_TSS=0.8449 | val_f1_pa=0.6111 | val_threshold=0.1731
+2026-07-08 06:14:58 | INFO | Saved best checkpoint (val_f1_pa=0.6111): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.1_20260708_061457/best.pt
+2026-07-08 06:15:00 | INFO | Epoch 2/5 | loss=0.5096 | L_THOC=0.1682 | L_orth=2.5959 | L_TSS=0.8189 | val_f1_pa=0.6241 | val_threshold=0.1623
+2026-07-08 06:15:00 | INFO | Saved best checkpoint (val_f1_pa=0.6241): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.1_20260708_061457/best.pt
+2026-07-08 06:15:01 | INFO | Epoch 3/5 | loss=0.4814 | L_THOC=0.1556 | L_orth=2.4709 | L_TSS=0.7872 | val_f1_pa=0.6014 | val_threshold=0.1476
+2026-07-08 06:15:02 | INFO | Epoch 4/5 | loss=0.4474 | L_THOC=0.1383 | L_orth=2.3490 | L_TSS=0.7421 | val_f1_pa=0.5850 | val_threshold=0.1287
+2026-07-08 06:15:04 | INFO | Epoch 5/5 | loss=0.4121 | L_THOC=0.1221 | L_orth=2.2296 | L_TSS=0.6707 | val_f1_pa=0.5972 | val_threshold=0.1163
+2026-07-08 06:15:04 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.1_20260708_061457/train_history.json
+2026-07-08 06:15:04 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.1_20260708_061457/best.pt
+2026-07-08 06:15:04 | INFO |   threshold: 0.1623
+2026-07-08 06:15:04 | INFO |   auc: 0.5926
+2026-07-08 06:15:04 | INFO |   accuracy: 0.6400
+2026-07-08 06:15:04 | INFO |   precision: 0.2805
+2026-07-08 06:15:04 | INFO |   recall: 0.4792
+2026-07-08 06:15:04 | INFO |   f1: 0.3538
+2026-07-08 06:15:04 | INFO |   accuracy_pa: 0.7043
+2026-07-08 06:15:04 | INFO |   precision_pa: 0.3918
+2026-07-08 06:15:04 | INFO |   recall_pa: 0.7917
+2026-07-08 06:15:04 | INFO |   f1_pa: 0.5241
+2026-07-08 06:15:04 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:15:04 | INFO |   (ref) val_threshold=0.1623 on test → f1_pa=0.5173
+2026-07-08 06:15:04 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.1_20260708_061457/results.json
+2026-07-08 06:15:04 | INFO | === Tune 7/36 | lr=0.0001 | lambda_orth=0.1 | lambda_tss=0.5 ===
+2026-07-08 06:15:04 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:15:04 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:15:04 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:15:04 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:15:06 | INFO | Epoch 1/5 | loss=0.8721 | L_THOC=0.1789 | L_orth=2.6619 | L_TSS=0.8541 | val_f1_pa=0.6337 | val_threshold=0.1734
+2026-07-08 06:15:06 | INFO | Saved best checkpoint (val_f1_pa=0.6337): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.5_20260708_061504/best.pt
+2026-07-08 06:15:07 | INFO | Epoch 2/5 | loss=0.8337 | L_THOC=0.1679 | L_orth=2.5357 | L_TSS=0.8245 | val_f1_pa=0.6275 | val_threshold=0.1612
+2026-07-08 06:15:08 | INFO | Epoch 3/5 | loss=0.7899 | L_THOC=0.1541 | L_orth=2.4125 | L_TSS=0.7892 | val_f1_pa=0.6400 | val_threshold=0.1450
+2026-07-08 06:15:08 | INFO | Saved best checkpoint (val_f1_pa=0.6400): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.5_20260708_061504/best.pt
+2026-07-08 06:15:09 | INFO | Epoch 4/5 | loss=0.7340 | L_THOC=0.1364 | L_orth=2.2923 | L_TSS=0.7367 | val_f1_pa=0.6337 | val_threshold=0.1265
+2026-07-08 06:15:11 | INFO | Epoch 5/5 | loss=0.6608 | L_THOC=0.1196 | L_orth=2.1746 | L_TSS=0.6475 | val_f1_pa=0.6161 | val_threshold=0.1129
+2026-07-08 06:15:11 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.5_20260708_061504/train_history.json
+2026-07-08 06:15:11 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.5_20260708_061504/best.pt
+2026-07-08 06:15:11 | INFO |   threshold: 0.1454
+2026-07-08 06:15:11 | INFO |   auc: 0.4272
+2026-07-08 06:15:11 | INFO |   accuracy: 0.7971
+2026-07-08 06:15:11 | INFO |   precision: 0.5714
+2026-07-08 06:15:11 | INFO |   recall: 0.0556
+2026-07-08 06:15:11 | INFO |   f1: 0.1013
+2026-07-08 06:15:11 | INFO |   accuracy_pa: 0.8371
+2026-07-08 06:15:11 | INFO |   precision_pa: 0.8571
+2026-07-08 06:15:11 | INFO |   recall_pa: 0.2500
+2026-07-08 06:15:11 | INFO |   f1_pa: 0.3871
+2026-07-08 06:15:11 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:15:11 | INFO |   (ref) val_threshold=0.1450 on test → f1_pa=0.3463
+2026-07-08 06:15:11 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss0.5_20260708_061504/results.json
+2026-07-08 06:15:11 | INFO | === Tune 8/36 | lr=0.0001 | lambda_orth=0.1 | lambda_tss=1 ===
+2026-07-08 06:15:11 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:15:11 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:15:11 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:15:11 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:15:13 | INFO | Epoch 1/5 | loss=1.2985 | L_THOC=0.1837 | L_orth=2.7016 | L_TSS=0.8447 | val_f1_pa=0.5455 | val_threshold=0.1784
+2026-07-08 06:15:13 | INFO | Saved best checkpoint (val_f1_pa=0.5455): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss1_20260708_061511/best.pt
+2026-07-08 06:15:14 | INFO | Epoch 2/5 | loss=1.2445 | L_THOC=0.1731 | L_orth=2.5746 | L_TSS=0.8140 | val_f1_pa=0.5130 | val_threshold=0.1665
+2026-07-08 06:15:15 | INFO | Epoch 3/5 | loss=1.1819 | L_THOC=0.1595 | L_orth=2.4506 | L_TSS=0.7773 | val_f1_pa=0.4490 | val_threshold=0.1509
+2026-07-08 06:15:16 | INFO | Epoch 4/5 | loss=1.0975 | L_THOC=0.1419 | L_orth=2.3295 | L_TSS=0.7226 | val_f1_pa=0.4202 | val_threshold=0.1318
+2026-07-08 06:15:18 | INFO | Epoch 5/5 | loss=0.9729 | L_THOC=0.1234 | L_orth=2.2111 | L_TSS=0.6284 | val_f1_pa=0.4169 | val_threshold=0.1159
+2026-07-08 06:15:18 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss1_20260708_061511/train_history.json
+2026-07-08 06:15:18 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss1_20260708_061511/best.pt
+2026-07-08 06:15:18 | INFO |   threshold: 0.1784
+2026-07-08 06:15:18 | INFO |   auc: 0.3650
+2026-07-08 06:15:18 | INFO |   accuracy: 0.4271
+2026-07-08 06:15:18 | INFO |   precision: 0.1763
+2026-07-08 06:15:18 | INFO |   recall: 0.4861
+2026-07-08 06:15:18 | INFO |   f1: 0.2588
+2026-07-08 06:15:18 | INFO |   accuracy_pa: 0.4957
+2026-07-08 06:15:18 | INFO |   precision_pa: 0.2652
+2026-07-08 06:15:18 | INFO |   recall_pa: 0.8194
+2026-07-08 06:15:18 | INFO |   f1_pa: 0.4007
+2026-07-08 06:15:18 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:15:18 | INFO |   (ref) val_threshold=0.1784 on test → f1_pa=0.3049
+2026-07-08 06:15:18 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth0.1_tss1_20260708_061511/results.json
+2026-07-08 06:15:18 | INFO | === Tune 9/36 | lr=0.0001 | lambda_orth=1 | lambda_tss=0.01 ===
+2026-07-08 06:15:18 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:15:18 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:15:18 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:15:18 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:15:20 | INFO | Epoch 1/5 | loss=2.8800 | L_THOC=0.1867 | L_orth=2.6849 | L_TSS=0.8394 | val_f1_pa=0.4595 | val_threshold=0.1813
+2026-07-08 06:15:20 | INFO | Saved best checkpoint (val_f1_pa=0.4595): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.01_20260708_061518/best.pt
+2026-07-08 06:15:21 | INFO | Epoch 2/5 | loss=2.7383 | L_THOC=0.1753 | L_orth=2.5548 | L_TSS=0.8172 | val_f1_pa=0.4370 | val_threshold=0.1682
+2026-07-08 06:15:22 | INFO | Epoch 3/5 | loss=2.5942 | L_THOC=0.1585 | L_orth=2.4278 | L_TSS=0.7960 | val_f1_pa=0.4236 | val_threshold=0.1465
+2026-07-08 06:15:23 | INFO | Epoch 4/5 | loss=2.4455 | L_THOC=0.1338 | L_orth=2.3039 | L_TSS=0.7779 | val_f1_pa=0.4251 | val_threshold=0.1227
+2026-07-08 06:15:25 | INFO | Epoch 5/5 | loss=2.3066 | L_THOC=0.1159 | L_orth=2.1832 | L_TSS=0.7562 | val_f1_pa=0.4290 | val_threshold=0.1098
+2026-07-08 06:15:25 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.01_20260708_061518/train_history.json
+2026-07-08 06:15:25 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.01_20260708_061518/best.pt
+2026-07-08 06:15:25 | INFO |   threshold: 0.1810
+2026-07-08 06:15:25 | INFO |   auc: 0.3592
+2026-07-08 06:15:25 | INFO |   accuracy: 0.4186
+2026-07-08 06:15:25 | INFO |   precision: 0.1530
+2026-07-08 06:15:25 | INFO |   recall: 0.4028
+2026-07-08 06:15:25 | INFO |   f1: 0.2218
+2026-07-08 06:15:25 | INFO |   accuracy_pa: 0.4957
+2026-07-08 06:15:25 | INFO |   precision_pa: 0.2587
+2026-07-08 06:15:25 | INFO |   recall_pa: 0.7778
+2026-07-08 06:15:25 | INFO |   f1_pa: 0.3882
+2026-07-08 06:15:25 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:15:25 | INFO |   (ref) val_threshold=0.1813 on test → f1_pa=0.1208
+2026-07-08 06:15:25 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.01_20260708_061518/results.json
+2026-07-08 06:15:25 | INFO | === Tune 10/36 | lr=0.0001 | lambda_orth=1 | lambda_tss=0.1 ===
+2026-07-08 06:15:25 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:15:25 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:15:25 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:15:25 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:15:27 | INFO | Epoch 1/5 | loss=2.9419 | L_THOC=0.1794 | L_orth=2.6773 | L_TSS=0.8519 | val_f1_pa=0.4202 | val_threshold=0.1740
+2026-07-08 06:15:27 | INFO | Saved best checkpoint (val_f1_pa=0.4202): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.1_20260708_061525/best.pt
+2026-07-08 06:15:28 | INFO | Epoch 2/5 | loss=2.7979 | L_THOC=0.1686 | L_orth=2.5468 | L_TSS=0.8249 | val_f1_pa=0.4236 | val_threshold=0.1622
+2026-07-08 06:15:28 | INFO | Saved best checkpoint (val_f1_pa=0.4236): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.1_20260708_061525/best.pt
+2026-07-08 06:15:29 | INFO | Epoch 3/5 | loss=2.6538 | L_THOC=0.1550 | L_orth=2.4194 | L_TSS=0.7950 | val_f1_pa=0.4377 | val_threshold=0.1456
+2026-07-08 06:15:29 | INFO | Saved best checkpoint (val_f1_pa=0.4377): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.1_20260708_061525/best.pt
+2026-07-08 06:15:30 | INFO | Epoch 4/5 | loss=2.5067 | L_THOC=0.1360 | L_orth=2.2952 | L_TSS=0.7558 | val_f1_pa=0.4225 | val_threshold=0.1256
+2026-07-08 06:15:32 | INFO | Epoch 5/5 | loss=2.3624 | L_THOC=0.1188 | L_orth=2.1741 | L_TSS=0.6942 | val_f1_pa=0.4169 | val_threshold=0.1124
+2026-07-08 06:15:32 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.1_20260708_061525/train_history.json
+2026-07-08 06:15:32 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.1_20260708_061525/best.pt
+2026-07-08 06:15:32 | INFO |   threshold: 0.1457
+2026-07-08 06:15:32 | INFO |   auc: 0.5700
+2026-07-08 06:15:32 | INFO |   accuracy: 0.6229
+2026-07-08 06:15:32 | INFO |   precision: 0.2561
+2026-07-08 06:15:32 | INFO |   recall: 0.4375
+2026-07-08 06:15:32 | INFO |   f1: 0.3231
+2026-07-08 06:15:32 | INFO |   accuracy_pa: 0.6729
+2026-07-08 06:15:32 | INFO |   precision_pa: 0.3488
+2026-07-08 06:15:32 | INFO |   recall_pa: 0.6806
+2026-07-08 06:15:32 | INFO |   f1_pa: 0.4612
+2026-07-08 06:15:32 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:15:32 | INFO |   (ref) val_threshold=0.1456 on test → f1_pa=0.4199
+2026-07-08 06:15:32 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.1_20260708_061525/results.json
+2026-07-08 06:15:32 | INFO | === Tune 11/36 | lr=0.0001 | lambda_orth=1 | lambda_tss=0.5 ===
+2026-07-08 06:15:32 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:15:32 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:15:32 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:15:32 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:15:34 | INFO | Epoch 1/5 | loss=3.1907 | L_THOC=0.1810 | L_orth=2.5819 | L_TSS=0.8556 | val_f1_pa=0.4317 | val_threshold=0.1762
+2026-07-08 06:15:34 | INFO | Saved best checkpoint (val_f1_pa=0.4317): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.5_20260708_061532/best.pt
+2026-07-08 06:15:35 | INFO | Epoch 2/5 | loss=3.0361 | L_THOC=0.1709 | L_orth=2.4530 | L_TSS=0.8242 | val_f1_pa=0.4353 | val_threshold=0.1653
+2026-07-08 06:15:35 | INFO | Saved best checkpoint (val_f1_pa=0.4353): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.5_20260708_061532/best.pt
+2026-07-08 06:15:36 | INFO | Epoch 3/5 | loss=2.8788 | L_THOC=0.1583 | L_orth=2.3273 | L_TSS=0.7865 | val_f1_pa=0.4213 | val_threshold=0.1506
+2026-07-08 06:15:38 | INFO | Epoch 4/5 | loss=2.7120 | L_THOC=0.1419 | L_orth=2.2048 | L_TSS=0.7305 | val_f1_pa=0.4202 | val_threshold=0.1334
+2026-07-08 06:15:39 | INFO | Epoch 5/5 | loss=2.5292 | L_THOC=0.1252 | L_orth=2.0855 | L_TSS=0.6370 | val_f1_pa=0.4180 | val_threshold=0.1184
+2026-07-08 06:15:39 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.5_20260708_061532/train_history.json
+2026-07-08 06:15:39 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.5_20260708_061532/best.pt
+2026-07-08 06:15:39 | INFO |   threshold: 0.1651
+2026-07-08 06:15:39 | INFO |   auc: 0.4445
+2026-07-08 06:15:39 | INFO |   accuracy: 0.7043
+2026-07-08 06:15:39 | INFO |   precision: 0.2162
+2026-07-08 06:15:39 | INFO |   recall: 0.1667
+2026-07-08 06:15:39 | INFO |   f1: 0.1882
+2026-07-08 06:15:39 | INFO |   accuracy_pa: 0.7571
+2026-07-08 06:15:39 | INFO |   precision_pa: 0.4122
+2026-07-08 06:15:39 | INFO |   recall_pa: 0.4236
+2026-07-08 06:15:39 | INFO |   f1_pa: 0.4178
+2026-07-08 06:15:39 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:15:39 | INFO |   (ref) val_threshold=0.1653 on test → f1_pa=0.1469
+2026-07-08 06:15:39 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss0.5_20260708_061532/results.json
+2026-07-08 06:15:39 | INFO | === Tune 12/36 | lr=0.0001 | lambda_orth=1 | lambda_tss=1 ===
+2026-07-08 06:15:39 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:15:39 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:15:39 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:15:39 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:15:41 | INFO | Epoch 1/5 | loss=3.5915 | L_THOC=0.1717 | L_orth=2.5601 | L_TSS=0.8597 | val_f1_pa=0.4293 | val_threshold=0.1671
+2026-07-08 06:15:41 | INFO | Saved best checkpoint (val_f1_pa=0.4293): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss1_20260708_061539/best.pt
+2026-07-08 06:15:42 | INFO | Epoch 2/5 | loss=3.4259 | L_THOC=0.1625 | L_orth=2.4322 | L_TSS=0.8312 | val_f1_pa=0.4444 | val_threshold=0.1572
+2026-07-08 06:15:42 | INFO | Saved best checkpoint (val_f1_pa=0.4444): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss1_20260708_061539/best.pt
+2026-07-08 06:15:43 | INFO | Epoch 3/5 | loss=3.2560 | L_THOC=0.1507 | L_orth=2.3073 | L_TSS=0.7980 | val_f1_pa=0.5000 | val_threshold=0.1436
+2026-07-08 06:15:43 | INFO | Saved best checkpoint (val_f1_pa=0.5000): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss1_20260708_061539/best.pt
+2026-07-08 06:15:45 | INFO | Epoch 4/5 | loss=3.0700 | L_THOC=0.1355 | L_orth=2.1856 | L_TSS=0.7490 | val_f1_pa=0.4169 | val_threshold=0.1268
+2026-07-08 06:15:46 | INFO | Epoch 5/5 | loss=2.8503 | L_THOC=0.1206 | L_orth=2.0670 | L_TSS=0.6626 | val_f1_pa=0.4345 | val_threshold=0.1148
+2026-07-08 06:15:46 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss1_20260708_061539/train_history.json
+2026-07-08 06:15:46 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss1_20260708_061539/best.pt
+2026-07-08 06:15:46 | WARNING | Validation threshold 0.1436 flags 0/700 test points (test score max=0.1435). Using test_best_f1_pa for final metrics.
+2026-07-08 06:15:46 | INFO |   threshold: 0.1432
+2026-07-08 06:15:46 | INFO |   auc: 0.5812
+2026-07-08 06:15:46 | INFO |   accuracy: 0.7057
+2026-07-08 06:15:46 | INFO |   precision: 0.2905
+2026-07-08 06:15:46 | INFO |   recall: 0.2986
+2026-07-08 06:15:46 | INFO |   f1: 0.2945
+2026-07-08 06:15:46 | INFO |   accuracy_pa: 0.7757
+2026-07-08 06:15:46 | INFO |   precision_pa: 0.4670
+2026-07-08 06:15:46 | INFO |   recall_pa: 0.6389
+2026-07-08 06:15:46 | INFO |   f1_pa: 0.5396
+2026-07-08 06:15:46 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:15:46 | INFO |   (ref) val_threshold=0.1436 on test → f1_pa=0.0000
+2026-07-08 06:15:46 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0001_orth1_tss1_20260708_061539/results.json
+2026-07-08 06:15:46 | INFO | === Tune 13/36 | lr=0.0005 | lambda_orth=0.01 | lambda_tss=0.01 ===
+2026-07-08 06:15:46 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:15:46 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:15:46 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:15:46 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:15:48 | INFO | Epoch 1/5 | loss=0.1947 | L_THOC=0.1605 | L_orth=2.5993 | L_TSS=0.8181 | val_f1_pa=0.4519 | val_threshold=0.1270
+2026-07-08 06:15:48 | INFO | Saved best checkpoint (val_f1_pa=0.4519): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.01_20260708_061546/best.pt
+2026-07-08 06:15:49 | INFO | Epoch 2/5 | loss=0.1379 | L_THOC=0.1088 | L_orth=2.1683 | L_TSS=0.7344 | val_f1_pa=0.4254 | val_threshold=0.0942
+2026-07-08 06:15:50 | INFO | Epoch 3/5 | loss=0.1105 | L_THOC=0.0868 | L_orth=1.8048 | L_TSS=0.5654 | val_f1_pa=0.4321 | val_threshold=0.0811
+2026-07-08 06:15:52 | INFO | Epoch 4/5 | loss=0.0969 | L_THOC=0.0777 | L_orth=1.5297 | L_TSS=0.3837 | val_f1_pa=0.4329 | val_threshold=0.0745
+2026-07-08 06:15:53 | INFO | Epoch 5/5 | loss=0.0882 | L_THOC=0.0722 | L_orth=1.3363 | L_TSS=0.2611 | val_f1_pa=0.4341 | val_threshold=0.0697
+2026-07-08 06:15:53 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.01_20260708_061546/train_history.json
+2026-07-08 06:15:53 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.01_20260708_061546/best.pt
+2026-07-08 06:15:53 | INFO |   threshold: 0.1265
+2026-07-08 06:15:53 | INFO |   auc: 0.3798
+2026-07-08 06:15:53 | INFO |   accuracy: 0.3971
+2026-07-08 06:15:53 | INFO |   precision: 0.1472
+2026-07-08 06:15:53 | INFO |   recall: 0.4028
+2026-07-08 06:15:53 | INFO |   f1: 0.2156
+2026-07-08 06:15:53 | INFO |   accuracy_pa: 0.4771
+2026-07-08 06:15:53 | INFO |   precision_pa: 0.2533
+2026-07-08 06:15:53 | INFO |   recall_pa: 0.7917
+2026-07-08 06:15:53 | INFO |   f1_pa: 0.3838
+2026-07-08 06:15:53 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:15:53 | INFO |   (ref) val_threshold=0.1270 on test → f1_pa=0.1227
+2026-07-08 06:15:53 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.01_20260708_061546/results.json
+2026-07-08 06:15:53 | INFO | === Tune 14/36 | lr=0.0005 | lambda_orth=0.01 | lambda_tss=0.1 ===
+2026-07-08 06:15:53 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:15:53 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:15:53 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:15:53 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:15:55 | INFO | Epoch 1/5 | loss=0.2561 | L_THOC=0.1516 | L_orth=2.4949 | L_TSS=0.7954 | val_f1_pa=0.4169 | val_threshold=0.1240
+2026-07-08 06:15:55 | INFO | Saved best checkpoint (val_f1_pa=0.4169): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.1_20260708_061553/best.pt
+2026-07-08 06:15:56 | INFO | Epoch 2/5 | loss=0.1820 | L_THOC=0.1090 | L_orth=2.0713 | L_TSS=0.5225 | val_f1_pa=0.4317 | val_threshold=0.0977
+2026-07-08 06:15:56 | INFO | Saved best checkpoint (val_f1_pa=0.4317): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.1_20260708_061553/best.pt
+2026-07-08 06:15:57 | INFO | Epoch 3/5 | loss=0.1308 | L_THOC=0.0909 | L_orth=1.6913 | L_TSS=0.2300 | val_f1_pa=0.4262 | val_threshold=0.0858
+2026-07-08 06:15:59 | INFO | Epoch 4/5 | loss=0.1032 | L_THOC=0.0821 | L_orth=1.3896 | L_TSS=0.0720 | val_f1_pa=0.4293 | val_threshold=0.0786
+2026-07-08 06:16:00 | INFO | Epoch 5/5 | loss=0.0916 | L_THOC=0.0758 | L_orth=1.1843 | L_TSS=0.0392 | val_f1_pa=0.4270 | val_threshold=0.0728
+2026-07-08 06:16:00 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.1_20260708_061553/train_history.json
+2026-07-08 06:16:00 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.1_20260708_061553/best.pt
+2026-07-08 06:16:00 | INFO |   threshold: 0.0970
+2026-07-08 06:16:00 | INFO |   auc: 0.5520
+2026-07-08 06:16:00 | INFO |   accuracy: 0.6100
+2026-07-08 06:16:00 | INFO |   precision: 0.2367
+2026-07-08 06:16:00 | INFO |   recall: 0.4028
+2026-07-08 06:16:00 | INFO |   f1: 0.2982
+2026-07-08 06:16:00 | INFO |   accuracy_pa: 0.6643
+2026-07-08 06:16:00 | INFO |   precision_pa: 0.3392
+2026-07-08 06:16:00 | INFO |   recall_pa: 0.6667
+2026-07-08 06:16:00 | INFO |   f1_pa: 0.4496
+2026-07-08 06:16:00 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:16:00 | INFO |   (ref) val_threshold=0.0977 on test → f1_pa=0.1404
+2026-07-08 06:16:00 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.1_20260708_061553/results.json
+2026-07-08 06:16:00 | INFO | === Tune 15/36 | lr=0.0005 | lambda_orth=0.01 | lambda_tss=0.5 ===
+2026-07-08 06:16:00 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:16:00 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:16:00 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:16:00 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:16:02 | INFO | Epoch 1/5 | loss=0.5771 | L_THOC=0.1574 | L_orth=2.5880 | L_TSS=0.7877 | val_f1_pa=0.4407 | val_threshold=0.1228
+2026-07-08 06:16:02 | INFO | Saved best checkpoint (val_f1_pa=0.4407): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.5_20260708_061600/best.pt
+2026-07-08 06:16:03 | INFO | Epoch 2/5 | loss=0.3630 | L_THOC=0.1079 | L_orth=2.1577 | L_TSS=0.4671 | val_f1_pa=0.4247 | val_threshold=0.0959
+2026-07-08 06:16:04 | INFO | Epoch 3/5 | loss=0.1796 | L_THOC=0.0893 | L_orth=1.7881 | L_TSS=0.1449 | val_f1_pa=0.4202 | val_threshold=0.0833
+2026-07-08 06:16:06 | INFO | Epoch 4/5 | loss=0.1211 | L_THOC=0.0797 | L_orth=1.4940 | L_TSS=0.0529 | val_f1_pa=0.4247 | val_threshold=0.0760
+2026-07-08 06:16:07 | INFO | Epoch 5/5 | loss=0.1039 | L_THOC=0.0735 | L_orth=1.2834 | L_TSS=0.0350 | val_f1_pa=0.4270 | val_threshold=0.0708
+2026-07-08 06:16:07 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.5_20260708_061600/train_history.json
+2026-07-08 06:16:07 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.5_20260708_061600/best.pt
+2026-07-08 06:16:07 | INFO |   threshold: 0.1228
+2026-07-08 06:16:07 | INFO |   auc: 0.4429
+2026-07-08 06:16:07 | INFO |   accuracy: 0.6971
+2026-07-08 06:16:07 | INFO |   precision: 0.2302
+2026-07-08 06:16:07 | INFO |   recall: 0.2014
+2026-07-08 06:16:07 | INFO |   f1: 0.2148
+2026-07-08 06:16:07 | INFO |   accuracy_pa: 0.7371
+2026-07-08 06:16:07 | INFO |   precision_pa: 0.3701
+2026-07-08 06:16:07 | INFO |   recall_pa: 0.3958
+2026-07-08 06:16:07 | INFO |   f1_pa: 0.3826
+2026-07-08 06:16:07 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:16:07 | INFO |   (ref) val_threshold=0.1228 on test → f1_pa=0.3750
+2026-07-08 06:16:07 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss0.5_20260708_061600/results.json
+2026-07-08 06:16:07 | INFO | === Tune 16/36 | lr=0.0005 | lambda_orth=0.01 | lambda_tss=1 ===
+2026-07-08 06:16:07 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:16:07 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:16:07 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:16:07 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:16:09 | INFO | Epoch 1/5 | loss=0.9699 | L_THOC=0.1612 | L_orth=2.4104 | L_TSS=0.7846 | val_f1_pa=0.4605 | val_threshold=0.1335
+2026-07-08 06:16:09 | INFO | Saved best checkpoint (val_f1_pa=0.4605): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss1_20260708_061607/best.pt
+2026-07-08 06:16:10 | INFO | Epoch 2/5 | loss=0.5926 | L_THOC=0.1144 | L_orth=1.9973 | L_TSS=0.4582 | val_f1_pa=0.4438 | val_threshold=0.0989
+2026-07-08 06:16:11 | INFO | Epoch 3/5 | loss=0.2488 | L_THOC=0.0900 | L_orth=1.6425 | L_TSS=0.1423 | val_f1_pa=0.4444 | val_threshold=0.0830
+2026-07-08 06:16:13 | INFO | Epoch 4/5 | loss=0.1446 | L_THOC=0.0791 | L_orth=1.3678 | L_TSS=0.0519 | val_f1_pa=0.4577 | val_threshold=0.0756
+2026-07-08 06:16:14 | INFO | Epoch 5/5 | loss=0.1192 | L_THOC=0.0729 | L_orth=1.1832 | L_TSS=0.0345 | val_f1_pa=0.4848 | val_threshold=0.0704
+2026-07-08 06:16:14 | INFO | Saved best checkpoint (val_f1_pa=0.4848): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss1_20260708_061607/best.pt
+2026-07-08 06:16:14 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss1_20260708_061607/train_history.json
+2026-07-08 06:16:14 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss1_20260708_061607/best.pt
+2026-07-08 06:16:14 | INFO |   threshold: 0.0709
+2026-07-08 06:16:14 | INFO |   auc: 0.4397
+2026-07-08 06:16:14 | INFO |   accuracy: 0.7486
+2026-07-08 06:16:14 | INFO |   precision: 0.2714
+2026-07-08 06:16:14 | INFO |   recall: 0.1319
+2026-07-08 06:16:14 | INFO |   f1: 0.1776
+2026-07-08 06:16:14 | INFO |   accuracy_pa: 0.7986
+2026-07-08 06:16:14 | INFO |   precision_pa: 0.5143
+2026-07-08 06:16:14 | INFO |   recall_pa: 0.3750
+2026-07-08 06:16:14 | INFO |   f1_pa: 0.4337
+2026-07-08 06:16:14 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:16:14 | INFO |   (ref) val_threshold=0.0704 on test → f1_pa=0.3266
+2026-07-08 06:16:14 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.01_tss1_20260708_061607/results.json
+2026-07-08 06:16:14 | INFO | === Tune 17/36 | lr=0.0005 | lambda_orth=0.1 | lambda_tss=0.01 ===
+2026-07-08 06:16:14 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:16:14 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:16:14 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:16:14 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:16:16 | INFO | Epoch 1/5 | loss=0.4048 | L_THOC=0.1538 | L_orth=2.4278 | L_TSS=0.8232 | val_f1_pa=0.4399 | val_threshold=0.1240
+2026-07-08 06:16:16 | INFO | Saved best checkpoint (val_f1_pa=0.4399): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.01_20260708_061614/best.pt
+2026-07-08 06:16:17 | INFO | Epoch 2/5 | loss=0.2997 | L_THOC=0.1082 | L_orth=1.8415 | L_TSS=0.7307 | val_f1_pa=0.4309 | val_threshold=0.0965
+2026-07-08 06:16:18 | INFO | Epoch 3/5 | loss=0.2292 | L_THOC=0.0914 | L_orth=1.3231 | L_TSS=0.5447 | val_f1_pa=0.4270 | val_threshold=0.0875
+2026-07-08 06:16:20 | INFO | Epoch 4/5 | loss=0.1768 | L_THOC=0.0860 | L_orth=0.8704 | L_TSS=0.3692 | val_f1_pa=0.4270 | val_threshold=0.0851
+2026-07-08 06:16:21 | INFO | Epoch 5/5 | loss=0.1354 | L_THOC=0.0853 | L_orth=0.4761 | L_TSS=0.2495 | val_f1_pa=0.4293 | val_threshold=0.0856
+2026-07-08 06:16:21 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.01_20260708_061614/train_history.json
+2026-07-08 06:16:21 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.01_20260708_061614/best.pt
+2026-07-08 06:16:21 | INFO |   threshold: 0.1236
+2026-07-08 06:16:21 | INFO |   auc: 0.3903
+2026-07-08 06:16:21 | INFO |   accuracy: 0.3686
+2026-07-08 06:16:21 | INFO |   precision: 0.1857
+2026-07-08 06:16:21 | INFO |   recall: 0.6111
+2026-07-08 06:16:21 | INFO |   f1: 0.2848
+2026-07-08 06:16:21 | INFO |   accuracy_pa: 0.4200
+2026-07-08 06:16:21 | INFO |   precision_pa: 0.2431
+2026-07-08 06:16:21 | INFO |   recall_pa: 0.8611
+2026-07-08 06:16:21 | INFO |   f1_pa: 0.3792
+2026-07-08 06:16:21 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:16:21 | INFO |   (ref) val_threshold=0.1240 on test → f1_pa=0.0252
+2026-07-08 06:16:21 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.01_20260708_061614/results.json
+2026-07-08 06:16:21 | INFO | === Tune 18/36 | lr=0.0005 | lambda_orth=0.1 | lambda_tss=0.1 ===
+2026-07-08 06:16:21 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:16:21 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:16:21 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:16:21 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:16:23 | INFO | Epoch 1/5 | loss=0.4647 | L_THOC=0.1537 | L_orth=2.3182 | L_TSS=0.7909 | val_f1_pa=0.4286 | val_threshold=0.1258
+2026-07-08 06:16:23 | INFO | Saved best checkpoint (val_f1_pa=0.4286): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.1_20260708_061621/best.pt
+2026-07-08 06:16:24 | INFO | Epoch 2/5 | loss=0.3387 | L_THOC=0.1118 | L_orth=1.7454 | L_TSS=0.5242 | val_f1_pa=0.4225 | val_threshold=0.1000
+2026-07-08 06:16:25 | INFO | Epoch 3/5 | loss=0.2406 | L_THOC=0.0944 | L_orth=1.2388 | L_TSS=0.2232 | val_f1_pa=0.4274 | val_threshold=0.0900
+2026-07-08 06:16:27 | INFO | Epoch 4/5 | loss=0.1751 | L_THOC=0.0884 | L_orth=0.7963 | L_TSS=0.0710 | val_f1_pa=0.4413 | val_threshold=0.0876
+2026-07-08 06:16:27 | INFO | Saved best checkpoint (val_f1_pa=0.4413): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.1_20260708_061621/best.pt
+2026-07-08 06:16:28 | INFO | Epoch 5/5 | loss=0.1324 | L_THOC=0.0874 | L_orth=0.4118 | L_TSS=0.0384 | val_f1_pa=0.4375 | val_threshold=0.0879
+2026-07-08 06:16:28 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.1_20260708_061621/train_history.json
+2026-07-08 06:16:28 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.1_20260708_061621/best.pt
+2026-07-08 06:16:28 | INFO |   threshold: 0.0873
+2026-07-08 06:16:28 | INFO |   auc: 0.3921
+2026-07-08 06:16:28 | INFO |   accuracy: 0.3429
+2026-07-08 06:16:28 | INFO |   precision: 0.1695
+2026-07-08 06:16:28 | INFO |   recall: 0.5625
+2026-07-08 06:16:28 | INFO |   f1: 0.2605
+2026-07-08 06:16:28 | INFO |   accuracy_pa: 0.4029
+2026-07-08 06:16:28 | INFO |   precision_pa: 0.2365
+2026-07-08 06:16:28 | INFO |   recall_pa: 0.8542
+2026-07-08 06:16:28 | INFO |   f1_pa: 0.3705
+2026-07-08 06:16:28 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:16:28 | INFO |   (ref) val_threshold=0.0876 on test → f1_pa=0.2981
+2026-07-08 06:16:28 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.1_20260708_061621/results.json
+2026-07-08 06:16:28 | INFO | === Tune 19/36 | lr=0.0005 | lambda_orth=0.1 | lambda_tss=0.5 ===
+2026-07-08 06:16:28 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:16:28 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:16:28 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:16:28 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:16:30 | INFO | Epoch 1/5 | loss=0.7856 | L_THOC=0.1612 | L_orth=2.3151 | L_TSS=0.7858 | val_f1_pa=0.4392 | val_threshold=0.1326
+2026-07-08 06:16:30 | INFO | Saved best checkpoint (val_f1_pa=0.4392): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.5_20260708_061628/best.pt
+2026-07-08 06:16:31 | INFO | Epoch 2/5 | loss=0.5284 | L_THOC=0.1156 | L_orth=1.7395 | L_TSS=0.4777 | val_f1_pa=0.4620 | val_threshold=0.1010
+2026-07-08 06:16:31 | INFO | Saved best checkpoint (val_f1_pa=0.4620): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.5_20260708_061628/best.pt
+2026-07-08 06:16:32 | INFO | Epoch 3/5 | loss=0.2975 | L_THOC=0.0945 | L_orth=1.2286 | L_TSS=0.1602 | val_f1_pa=0.4348 | val_threshold=0.0900
+2026-07-08 06:16:34 | INFO | Epoch 4/5 | loss=0.1952 | L_THOC=0.0885 | L_orth=0.7847 | L_TSS=0.0564 | val_f1_pa=0.4317 | val_threshold=0.0874
+2026-07-08 06:16:35 | INFO | Epoch 5/5 | loss=0.1456 | L_THOC=0.0874 | L_orth=0.4038 | L_TSS=0.0355 | val_f1_pa=0.4423 | val_threshold=0.0877
+2026-07-08 06:16:35 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.5_20260708_061628/train_history.json
+2026-07-08 06:16:35 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.5_20260708_061628/best.pt
+2026-07-08 06:16:35 | INFO |   threshold: 0.1011
+2026-07-08 06:16:35 | INFO |   auc: 0.5314
+2026-07-08 06:16:35 | INFO |   accuracy: 0.7943
+2026-07-08 06:16:35 | INFO |   precision: 0.5000
+2026-07-08 06:16:35 | INFO |   recall: 0.1389
+2026-07-08 06:16:35 | INFO |   f1: 0.2174
+2026-07-08 06:16:35 | INFO |   accuracy_pa: 0.8371
+2026-07-08 06:16:35 | INFO |   precision_pa: 0.7143
+2026-07-08 06:16:35 | INFO |   recall_pa: 0.3472
+2026-07-08 06:16:35 | INFO |   f1_pa: 0.4673
+2026-07-08 06:16:35 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:16:35 | INFO |   (ref) val_threshold=0.1010 on test → f1_pa=0.4362
+2026-07-08 06:16:35 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss0.5_20260708_061628/results.json
+2026-07-08 06:16:35 | INFO | === Tune 20/36 | lr=0.0005 | lambda_orth=0.1 | lambda_tss=1 ===
+2026-07-08 06:16:35 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:16:35 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:16:35 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:16:35 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:16:37 | INFO | Epoch 1/5 | loss=1.1823 | L_THOC=0.1581 | L_orth=2.3578 | L_TSS=0.7884 | val_f1_pa=0.5316 | val_threshold=0.1296
+2026-07-08 06:16:37 | INFO | Saved best checkpoint (val_f1_pa=0.5316): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss1_20260708_061635/best.pt
+2026-07-08 06:16:38 | INFO | Epoch 2/5 | loss=0.7546 | L_THOC=0.1160 | L_orth=1.7820 | L_TSS=0.4603 | val_f1_pa=0.4425 | val_threshold=0.1036
+2026-07-08 06:16:39 | INFO | Epoch 3/5 | loss=0.3629 | L_THOC=0.0968 | L_orth=1.2717 | L_TSS=0.1389 | val_f1_pa=0.4615 | val_threshold=0.0910
+2026-07-08 06:16:41 | INFO | Epoch 4/5 | loss=0.2243 | L_THOC=0.0890 | L_orth=0.8273 | L_TSS=0.0525 | val_f1_pa=0.5283 | val_threshold=0.0876
+2026-07-08 06:16:42 | INFO | Epoch 5/5 | loss=0.1667 | L_THOC=0.0873 | L_orth=0.4452 | L_TSS=0.0348 | val_f1_pa=0.5325 | val_threshold=0.0875
+2026-07-08 06:16:42 | INFO | Saved best checkpoint (val_f1_pa=0.5325): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss1_20260708_061635/best.pt
+2026-07-08 06:16:42 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss1_20260708_061635/train_history.json
+2026-07-08 06:16:42 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss1_20260708_061635/best.pt
+2026-07-08 06:16:42 | INFO |   threshold: 0.0879
+2026-07-08 06:16:42 | INFO |   auc: 0.5254
+2026-07-08 06:16:42 | INFO |   accuracy: 0.7314
+2026-07-08 06:16:42 | INFO |   precision: 0.2442
+2026-07-08 06:16:42 | INFO |   recall: 0.1458
+2026-07-08 06:16:42 | INFO |   f1: 0.1826
+2026-07-08 06:16:42 | INFO |   accuracy_pa: 0.7914
+2026-07-08 06:16:42 | INFO |   precision_pa: 0.4922
+2026-07-08 06:16:42 | INFO |   recall_pa: 0.4375
+2026-07-08 06:16:42 | INFO |   f1_pa: 0.4632
+2026-07-08 06:16:42 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:16:42 | INFO |   (ref) val_threshold=0.0875 on test → f1_pa=0.3667
+2026-07-08 06:16:42 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth0.1_tss1_20260708_061635/results.json
+2026-07-08 06:16:42 | INFO | === Tune 21/36 | lr=0.0005 | lambda_orth=1 | lambda_tss=0.01 ===
+2026-07-08 06:16:42 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:16:42 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:16:42 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:16:42 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:16:44 | INFO | Epoch 1/5 | loss=2.5708 | L_THOC=0.1533 | L_orth=2.4094 | L_TSS=0.8064 | val_f1_pa=0.4405 | val_threshold=0.1250
+2026-07-08 06:16:44 | INFO | Saved best checkpoint (val_f1_pa=0.4405): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.01_20260708_061642/best.pt
+2026-07-08 06:16:45 | INFO | Epoch 2/5 | loss=1.9305 | L_THOC=0.1100 | L_orth=1.8136 | L_TSS=0.6902 | val_f1_pa=0.4370 | val_threshold=0.0988
+2026-07-08 06:16:46 | INFO | Epoch 3/5 | loss=1.3852 | L_THOC=0.0935 | L_orth=1.2868 | L_TSS=0.4888 | val_f1_pa=0.4202 | val_threshold=0.0899
+2026-07-08 06:16:48 | INFO | Epoch 4/5 | loss=0.9188 | L_THOC=0.0887 | L_orth=0.8268 | L_TSS=0.3217 | val_f1_pa=0.4191 | val_threshold=0.0880
+2026-07-08 06:16:49 | INFO | Epoch 5/5 | loss=0.5198 | L_THOC=0.0880 | L_orth=0.4299 | L_TSS=0.1922 | val_f1_pa=0.4259 | val_threshold=0.0880
+2026-07-08 06:16:49 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.01_20260708_061642/train_history.json
+2026-07-08 06:16:49 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.01_20260708_061642/best.pt
+2026-07-08 06:16:49 | WARNING | Validation threshold 0.1250 flags 0/700 test points (test score max=0.1250). Using test_best_f1_pa for final metrics.
+2026-07-08 06:16:49 | INFO |   threshold: 0.1246
+2026-07-08 06:16:49 | INFO |   auc: 0.6315
+2026-07-08 06:16:49 | INFO |   accuracy: 0.7086
+2026-07-08 06:16:49 | INFO |   precision: 0.2727
+2026-07-08 06:16:49 | INFO |   recall: 0.2500
+2026-07-08 06:16:49 | INFO |   f1: 0.2609
+2026-07-08 06:16:49 | INFO |   accuracy_pa: 0.7800
+2026-07-08 06:16:49 | INFO |   precision_pa: 0.4725
+2026-07-08 06:16:49 | INFO |   recall_pa: 0.5972
+2026-07-08 06:16:49 | INFO |   f1_pa: 0.5276
+2026-07-08 06:16:49 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:16:49 | INFO |   (ref) val_threshold=0.1250 on test → f1_pa=0.0000
+2026-07-08 06:16:49 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.01_20260708_061642/results.json
+2026-07-08 06:16:49 | INFO | === Tune 22/36 | lr=0.0005 | lambda_orth=1 | lambda_tss=0.1 ===
+2026-07-08 06:16:49 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:16:49 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:16:49 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:16:49 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:16:51 | INFO | Epoch 1/5 | loss=2.6434 | L_THOC=0.1590 | L_orth=2.4040 | L_TSS=0.8042 | val_f1_pa=0.4251 | val_threshold=0.1282
+2026-07-08 06:16:51 | INFO | Saved best checkpoint (val_f1_pa=0.4251): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.1_20260708_061649/best.pt
+2026-07-08 06:16:52 | INFO | Epoch 2/5 | loss=1.9770 | L_THOC=0.1135 | L_orth=1.8090 | L_TSS=0.5443 | val_f1_pa=0.4247 | val_threshold=0.1023
+2026-07-08 06:16:53 | INFO | Epoch 3/5 | loss=1.4074 | L_THOC=0.0977 | L_orth=1.2838 | L_TSS=0.2594 | val_f1_pa=0.4526 | val_threshold=0.0944
+2026-07-08 06:16:53 | INFO | Saved best checkpoint (val_f1_pa=0.4526): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.1_20260708_061649/best.pt
+2026-07-08 06:16:55 | INFO | Epoch 4/5 | loss=0.9277 | L_THOC=0.0929 | L_orth=0.8261 | L_TSS=0.0875 | val_f1_pa=0.4545 | val_threshold=0.0918
+2026-07-08 06:16:55 | INFO | Saved best checkpoint (val_f1_pa=0.4545): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.1_20260708_061649/best.pt
+2026-07-08 06:16:56 | INFO | Epoch 5/5 | loss=0.5278 | L_THOC=0.0909 | L_orth=0.4327 | L_TSS=0.0424 | val_f1_pa=0.4438 | val_threshold=0.0903
+2026-07-08 06:16:56 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.1_20260708_061649/train_history.json
+2026-07-08 06:16:56 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.1_20260708_061649/best.pt
+2026-07-08 06:16:56 | INFO |   threshold: 0.0918
+2026-07-08 06:16:56 | INFO |   auc: 0.5035
+2026-07-08 06:16:56 | INFO |   accuracy: 0.6657
+2026-07-08 06:16:56 | INFO |   precision: 0.2680
+2026-07-08 06:16:56 | INFO |   recall: 0.3611
+2026-07-08 06:16:56 | INFO |   f1: 0.3077
+2026-07-08 06:16:56 | INFO |   accuracy_pa: 0.7157
+2026-07-08 06:16:56 | INFO |   precision_pa: 0.3799
+2026-07-08 06:16:56 | INFO |   recall_pa: 0.6042
+2026-07-08 06:16:56 | INFO |   f1_pa: 0.4665
+2026-07-08 06:16:56 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:16:56 | INFO |   (ref) val_threshold=0.0918 on test → f1_pa=0.4555
+2026-07-08 06:16:56 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.1_20260708_061649/results.json
+2026-07-08 06:16:56 | INFO | === Tune 23/36 | lr=0.0005 | lambda_orth=1 | lambda_tss=0.5 ===
+2026-07-08 06:16:56 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:16:56 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:16:56 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:16:56 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:16:58 | INFO | Epoch 1/5 | loss=3.0855 | L_THOC=0.1684 | L_orth=2.5221 | L_TSS=0.7900 | val_f1_pa=0.4286 | val_threshold=0.1376
+2026-07-08 06:16:58 | INFO | Saved best checkpoint (val_f1_pa=0.4286): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.5_20260708_061656/best.pt
+2026-07-08 06:16:59 | INFO | Epoch 2/5 | loss=2.2737 | L_THOC=0.1163 | L_orth=1.9161 | L_TSS=0.4824 | val_f1_pa=0.4323 | val_threshold=0.1021
+2026-07-08 06:16:59 | INFO | Saved best checkpoint (val_f1_pa=0.4323): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.5_20260708_061656/best.pt
+2026-07-08 06:17:00 | INFO | Epoch 3/5 | loss=1.5585 | L_THOC=0.0956 | L_orth=1.3806 | L_TSS=0.1646 | val_f1_pa=0.4191 | val_threshold=0.0916
+2026-07-08 06:17:02 | INFO | Epoch 4/5 | loss=1.0314 | L_THOC=0.0904 | L_orth=0.9128 | L_TSS=0.0565 | val_f1_pa=0.4180 | val_threshold=0.0899
+2026-07-08 06:17:03 | INFO | Epoch 5/5 | loss=0.6162 | L_THOC=0.0898 | L_orth=0.5083 | L_TSS=0.0362 | val_f1_pa=0.4191 | val_threshold=0.0903
+2026-07-08 06:17:03 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.5_20260708_061656/train_history.json
+2026-07-08 06:17:03 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.5_20260708_061656/best.pt
+2026-07-08 06:17:03 | INFO |   threshold: 0.1015
+2026-07-08 06:17:03 | INFO |   auc: 0.5004
+2026-07-08 06:17:03 | INFO |   accuracy: 0.7243
+2026-07-08 06:17:03 | INFO |   precision: 0.3130
+2026-07-08 06:17:03 | INFO |   recall: 0.2847
+2026-07-08 06:17:03 | INFO |   f1: 0.2982
+2026-07-08 06:17:03 | INFO |   accuracy_pa: 0.7700
+2026-07-08 06:17:03 | INFO |   precision_pa: 0.4479
+2026-07-08 06:17:03 | INFO |   recall_pa: 0.5069
+2026-07-08 06:17:03 | INFO |   f1_pa: 0.4756
+2026-07-08 06:17:03 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:17:03 | INFO |   (ref) val_threshold=0.1021 on test → f1_pa=0.1310
+2026-07-08 06:17:03 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss0.5_20260708_061656/results.json
+2026-07-08 06:17:03 | INFO | === Tune 24/36 | lr=0.0005 | lambda_orth=1 | lambda_tss=1 ===
+2026-07-08 06:17:03 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:17:03 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:17:03 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:17:03 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:17:05 | INFO | Epoch 1/5 | loss=3.3766 | L_THOC=0.1568 | L_orth=2.4277 | L_TSS=0.7921 | val_f1_pa=0.4225 | val_threshold=0.1323
+2026-07-08 06:17:05 | INFO | Saved best checkpoint (val_f1_pa=0.4225): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss1_20260708_061703/best.pt
+2026-07-08 06:17:06 | INFO | Epoch 2/5 | loss=2.4260 | L_THOC=0.1169 | L_orth=1.8332 | L_TSS=0.4758 | val_f1_pa=0.4169 | val_threshold=0.1052
+2026-07-08 06:17:07 | INFO | Epoch 3/5 | loss=1.5571 | L_THOC=0.0980 | L_orth=1.3070 | L_TSS=0.1520 | val_f1_pa=0.4225 | val_threshold=0.0936
+2026-07-08 06:17:08 | INFO | Epoch 4/5 | loss=0.9950 | L_THOC=0.0916 | L_orth=0.8468 | L_TSS=0.0566 | val_f1_pa=0.4444 | val_threshold=0.0910
+2026-07-08 06:17:09 | INFO | Saved best checkpoint (val_f1_pa=0.4444): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss1_20260708_061703/best.pt
+2026-07-08 06:17:10 | INFO | Epoch 5/5 | loss=0.5760 | L_THOC=0.0903 | L_orth=0.4487 | L_TSS=0.0369 | val_f1_pa=0.4270 | val_threshold=0.0903
+2026-07-08 06:17:10 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss1_20260708_061703/train_history.json
+2026-07-08 06:17:10 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss1_20260708_061703/best.pt
+2026-07-08 06:17:10 | INFO |   threshold: 0.0903
+2026-07-08 06:17:10 | INFO |   auc: 0.3871
+2026-07-08 06:17:10 | INFO |   accuracy: 0.3400
+2026-07-08 06:17:10 | INFO |   precision: 0.1742
+2026-07-08 06:17:10 | INFO |   recall: 0.5903
+2026-07-08 06:17:10 | INFO |   f1: 0.2690
+2026-07-08 06:17:10 | INFO |   accuracy_pa: 0.3971
+2026-07-08 06:17:10 | INFO |   precision_pa: 0.2367
+2026-07-08 06:17:10 | INFO |   recall_pa: 0.8681
+2026-07-08 06:17:10 | INFO |   f1_pa: 0.3720
+2026-07-08 06:17:10 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:17:10 | INFO |   (ref) val_threshold=0.0910 on test → f1_pa=0.2583
+2026-07-08 06:17:10 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.0005_orth1_tss1_20260708_061703/results.json
+2026-07-08 06:17:10 | INFO | === Tune 25/36 | lr=0.001 | lambda_orth=0.01 | lambda_tss=0.01 ===
+2026-07-08 06:17:10 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:17:10 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:17:10 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:17:10 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:17:12 | INFO | Epoch 1/5 | loss=0.1750 | L_THOC=0.1436 | L_orth=2.3667 | L_TSS=0.7704 | val_f1_pa=0.4341 | val_threshold=0.1053
+2026-07-08 06:17:12 | INFO | Saved best checkpoint (val_f1_pa=0.4341): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.01_20260708_061710/best.pt
+2026-07-08 06:17:13 | INFO | Epoch 2/5 | loss=0.1131 | L_THOC=0.0919 | L_orth=1.6194 | L_TSS=0.4967 | val_f1_pa=0.4191 | val_threshold=0.0818
+2026-07-08 06:17:14 | INFO | Epoch 3/5 | loss=0.0921 | L_THOC=0.0774 | L_orth=1.1979 | L_TSS=0.2757 | val_f1_pa=0.4202 | val_threshold=0.0729
+2026-07-08 06:17:15 | INFO | Epoch 4/5 | loss=0.0812 | L_THOC=0.0692 | L_orth=1.1040 | L_TSS=0.0967 | val_f1_pa=0.4353 | val_threshold=0.0646
+2026-07-08 06:17:15 | INFO | Saved best checkpoint (val_f1_pa=0.4353): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.01_20260708_061710/best.pt
+2026-07-08 06:17:17 | INFO | Epoch 5/5 | loss=0.0729 | L_THOC=0.0603 | L_orth=1.2255 | L_TSS=0.0342 | val_f1_pa=0.4329 | val_threshold=0.0556
+2026-07-08 06:17:17 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.01_20260708_061710/train_history.json
+2026-07-08 06:17:17 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.01_20260708_061710/best.pt
+2026-07-08 06:17:17 | INFO |   threshold: 0.0646
+2026-07-08 06:17:17 | INFO |   auc: 0.5034
+2026-07-08 06:17:17 | INFO |   accuracy: 0.6529
+2026-07-08 06:17:17 | INFO |   precision: 0.2740
+2026-07-08 06:17:17 | INFO |   recall: 0.4167
+2026-07-08 06:17:17 | INFO |   f1: 0.3306
+2026-07-08 06:17:17 | INFO |   accuracy_pa: 0.7257
+2026-07-08 06:17:17 | INFO |   precision_pa: 0.4111
+2026-07-08 06:17:17 | INFO |   recall_pa: 0.7708
+2026-07-08 06:17:17 | INFO |   f1_pa: 0.5362
+2026-07-08 06:17:17 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:17:17 | INFO |   (ref) val_threshold=0.0646 on test → f1_pa=0.3394
+2026-07-08 06:17:17 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.01_20260708_061710/results.json
+2026-07-08 06:17:17 | INFO | === Tune 26/36 | lr=0.001 | lambda_orth=0.01 | lambda_tss=0.1 ===
+2026-07-08 06:17:17 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:17:17 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:17:17 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:17:17 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:17:19 | INFO | Epoch 1/5 | loss=0.2295 | L_THOC=0.1395 | L_orth=2.3457 | L_TSS=0.6653 | val_f1_pa=0.5714 | val_threshold=0.1007
+2026-07-08 06:17:19 | INFO | Saved best checkpoint (val_f1_pa=0.5714): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.1_20260708_061717/best.pt
+2026-07-08 06:17:20 | INFO | Epoch 2/5 | loss=0.1255 | L_THOC=0.0881 | L_orth=1.5998 | L_TSS=0.2139 | val_f1_pa=0.4486 | val_threshold=0.0783
+2026-07-08 06:17:21 | INFO | Epoch 3/5 | loss=0.0894 | L_THOC=0.0727 | L_orth=1.1637 | L_TSS=0.0510 | val_f1_pa=0.4293 | val_threshold=0.0671
+2026-07-08 06:17:22 | INFO | Epoch 4/5 | loss=0.0766 | L_THOC=0.0631 | L_orth=1.0999 | L_TSS=0.0253 | val_f1_pa=0.4345 | val_threshold=0.0588
+2026-07-08 06:17:24 | INFO | Epoch 5/5 | loss=0.0691 | L_THOC=0.0553 | L_orth=1.2024 | L_TSS=0.0175 | val_f1_pa=0.4341 | val_threshold=0.0515
+2026-07-08 06:17:24 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.1_20260708_061717/train_history.json
+2026-07-08 06:17:24 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.1_20260708_061717/best.pt
+2026-07-08 06:17:24 | INFO |   threshold: 0.1011
+2026-07-08 06:17:24 | INFO |   auc: 0.5151
+2026-07-08 06:17:24 | INFO |   accuracy: 0.7343
+2026-07-08 06:17:24 | INFO |   precision: 0.2812
+2026-07-08 06:17:24 | INFO |   recall: 0.1875
+2026-07-08 06:17:24 | INFO |   f1: 0.2250
+2026-07-08 06:17:24 | INFO |   accuracy_pa: 0.7900
+2026-07-08 06:17:24 | INFO |   precision_pa: 0.4889
+2026-07-08 06:17:24 | INFO |   recall_pa: 0.4583
+2026-07-08 06:17:24 | INFO |   f1_pa: 0.4731
+2026-07-08 06:17:24 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:17:24 | INFO |   (ref) val_threshold=0.1007 on test → f1_pa=0.3669
+2026-07-08 06:17:24 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.1_20260708_061717/results.json
+2026-07-08 06:17:24 | INFO | === Tune 27/36 | lr=0.001 | lambda_orth=0.01 | lambda_tss=0.5 ===
+2026-07-08 06:17:24 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:17:24 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:17:24 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:17:24 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:17:26 | INFO | Epoch 1/5 | loss=0.4965 | L_THOC=0.1372 | L_orth=2.3050 | L_TSS=0.6725 | val_f1_pa=0.4451 | val_threshold=0.1031
+2026-07-08 06:17:26 | INFO | Saved best checkpoint (val_f1_pa=0.4451): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.5_20260708_061724/best.pt
+2026-07-08 06:17:27 | INFO | Epoch 2/5 | loss=0.1936 | L_THOC=0.0900 | L_orth=1.5800 | L_TSS=0.1756 | val_f1_pa=0.5108 | val_threshold=0.0796
+2026-07-08 06:17:27 | INFO | Saved best checkpoint (val_f1_pa=0.5108): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.5_20260708_061724/best.pt
+2026-07-08 06:17:28 | INFO | Epoch 3/5 | loss=0.1086 | L_THOC=0.0741 | L_orth=1.1676 | L_TSS=0.0455 | val_f1_pa=0.4591 | val_threshold=0.0688
+2026-07-08 06:17:29 | INFO | Epoch 4/5 | loss=0.0877 | L_THOC=0.0648 | L_orth=1.1201 | L_TSS=0.0235 | val_f1_pa=0.4326 | val_threshold=0.0605
+2026-07-08 06:17:31 | INFO | Epoch 5/5 | loss=0.0779 | L_THOC=0.0569 | L_orth=1.2514 | L_TSS=0.0170 | val_f1_pa=0.4293 | val_threshold=0.0529
+2026-07-08 06:17:31 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.5_20260708_061724/train_history.json
+2026-07-08 06:17:31 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.5_20260708_061724/best.pt
+2026-07-08 06:17:31 | INFO |   threshold: 0.0797
+2026-07-08 06:17:31 | INFO |   auc: 0.4855
+2026-07-08 06:17:31 | INFO |   accuracy: 0.7457
+2026-07-08 06:17:31 | INFO |   precision: 0.2875
+2026-07-08 06:17:31 | INFO |   recall: 0.1597
+2026-07-08 06:17:31 | INFO |   f1: 0.2054
+2026-07-08 06:17:31 | INFO |   accuracy_pa: 0.8071
+2026-07-08 06:17:31 | INFO |   precision_pa: 0.5366
+2026-07-08 06:17:31 | INFO |   recall_pa: 0.4583
+2026-07-08 06:17:31 | INFO |   f1_pa: 0.4944
+2026-07-08 06:17:31 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:17:31 | INFO |   (ref) val_threshold=0.0796 on test → f1_pa=0.3450
+2026-07-08 06:17:31 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss0.5_20260708_061724/results.json
+2026-07-08 06:17:31 | INFO | === Tune 28/36 | lr=0.001 | lambda_orth=0.01 | lambda_tss=1 ===
+2026-07-08 06:17:31 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:17:31 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:17:31 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:17:31 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:17:33 | INFO | Epoch 1/5 | loss=0.8285 | L_THOC=0.1387 | L_orth=2.2859 | L_TSS=0.6669 | val_f1_pa=0.4363 | val_threshold=0.1062
+2026-07-08 06:17:33 | INFO | Saved best checkpoint (val_f1_pa=0.4363): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss1_20260708_061731/best.pt
+2026-07-08 06:17:34 | INFO | Epoch 2/5 | loss=0.2652 | L_THOC=0.0929 | L_orth=1.5369 | L_TSS=0.1568 | val_f1_pa=0.4213 | val_threshold=0.0826
+2026-07-08 06:17:35 | INFO | Epoch 3/5 | loss=0.1335 | L_THOC=0.0774 | L_orth=1.0991 | L_TSS=0.0451 | val_f1_pa=0.4247 | val_threshold=0.0718
+2026-07-08 06:17:36 | INFO | Epoch 4/5 | loss=0.1016 | L_THOC=0.0674 | L_orth=1.0551 | L_TSS=0.0237 | val_f1_pa=0.4293 | val_threshold=0.0624
+2026-07-08 06:17:38 | INFO | Epoch 5/5 | loss=0.0879 | L_THOC=0.0585 | L_orth=1.1904 | L_TSS=0.0175 | val_f1_pa=0.4317 | val_threshold=0.0542
+2026-07-08 06:17:38 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss1_20260708_061731/train_history.json
+2026-07-08 06:17:38 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss1_20260708_061731/best.pt
+2026-07-08 06:17:38 | INFO |   threshold: 0.1060
+2026-07-08 06:17:38 | INFO |   auc: 0.4372
+2026-07-08 06:17:38 | INFO |   accuracy: 0.4271
+2026-07-08 06:17:38 | INFO |   precision: 0.1730
+2026-07-08 06:17:38 | INFO |   recall: 0.4722
+2026-07-08 06:17:38 | INFO |   f1: 0.2533
+2026-07-08 06:17:38 | INFO |   accuracy_pa: 0.4943
+2026-07-08 06:17:38 | INFO |   precision_pa: 0.2614
+2026-07-08 06:17:38 | INFO |   recall_pa: 0.7986
+2026-07-08 06:17:38 | INFO |   f1_pa: 0.3938
+2026-07-08 06:17:38 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:17:38 | INFO |   (ref) val_threshold=0.1062 on test → f1_pa=0.1750
+2026-07-08 06:17:38 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.01_tss1_20260708_061731/results.json
+2026-07-08 06:17:38 | INFO | === Tune 29/36 | lr=0.001 | lambda_orth=0.1 | lambda_tss=0.01 ===
+2026-07-08 06:17:38 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:17:38 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:17:38 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:17:38 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:17:39 | INFO | Epoch 1/5 | loss=0.3540 | L_THOC=0.1384 | L_orth=2.0810 | L_TSS=0.7564 | val_f1_pa=0.4254 | val_threshold=0.1021
+2026-07-08 06:17:39 | INFO | Saved best checkpoint (val_f1_pa=0.4254): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.01_20260708_061738/best.pt
+2026-07-08 06:17:41 | INFO | Epoch 2/5 | loss=0.2020 | L_THOC=0.0923 | L_orth=1.0466 | L_TSS=0.5116 | val_f1_pa=0.4333 | val_threshold=0.0861
+2026-07-08 06:17:41 | INFO | Saved best checkpoint (val_f1_pa=0.4333): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.01_20260708_061738/best.pt
+2026-07-08 06:17:42 | INFO | Epoch 3/5 | loss=0.1190 | L_THOC=0.0853 | L_orth=0.3028 | L_TSS=0.3395 | val_f1_pa=0.4341 | val_threshold=0.0860
+2026-07-08 06:17:42 | INFO | Saved best checkpoint (val_f1_pa=0.4341): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.01_20260708_061738/best.pt
+2026-07-08 06:17:43 | INFO | Epoch 4/5 | loss=0.1012 | L_THOC=0.0859 | L_orth=0.1359 | L_TSS=0.1655 | val_f1_pa=0.4341 | val_threshold=0.0859
+2026-07-08 06:17:45 | INFO | Epoch 5/5 | loss=0.0927 | L_THOC=0.0863 | L_orth=0.0594 | L_TSS=0.0435 | val_f1_pa=0.4333 | val_threshold=0.0862
+2026-07-08 06:17:45 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.01_20260708_061738/train_history.json
+2026-07-08 06:17:45 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.01_20260708_061738/best.pt
+2026-07-08 06:17:45 | INFO |   threshold: 0.0860
+2026-07-08 06:17:45 | INFO |   auc: 0.4425
+2026-07-08 06:17:45 | INFO |   accuracy: 0.7729
+2026-07-08 06:17:45 | INFO |   precision: 0.3729
+2026-07-08 06:17:45 | INFO |   recall: 0.1528
+2026-07-08 06:17:45 | INFO |   f1: 0.2167
+2026-07-08 06:17:45 | INFO |   accuracy_pa: 0.8129
+2026-07-08 06:17:45 | INFO |   precision_pa: 0.5747
+2026-07-08 06:17:45 | INFO |   recall_pa: 0.3472
+2026-07-08 06:17:45 | INFO |   f1_pa: 0.4329
+2026-07-08 06:17:45 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:17:45 | INFO |   (ref) val_threshold=0.0860 on test → f1_pa=0.4292
+2026-07-08 06:17:45 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.01_20260708_061738/results.json
+2026-07-08 06:17:45 | INFO | === Tune 30/36 | lr=0.001 | lambda_orth=0.1 | lambda_tss=0.1 ===
+2026-07-08 06:17:45 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:17:45 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:17:45 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:17:45 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:17:46 | INFO | Epoch 1/5 | loss=0.4237 | L_THOC=0.1498 | L_orth=2.0615 | L_TSS=0.6768 | val_f1_pa=0.4169 | val_threshold=0.1095
+2026-07-08 06:17:46 | INFO | Saved best checkpoint (val_f1_pa=0.4169): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.1_20260708_061745/best.pt
+2026-07-08 06:17:48 | INFO | Epoch 2/5 | loss=0.2256 | L_THOC=0.0988 | L_orth=1.0355 | L_TSS=0.2321 | val_f1_pa=0.4341 | val_threshold=0.0905
+2026-07-08 06:17:48 | INFO | Saved best checkpoint (val_f1_pa=0.4341): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.1_20260708_061745/best.pt
+2026-07-08 06:17:49 | INFO | Epoch 3/5 | loss=0.1245 | L_THOC=0.0882 | L_orth=0.3048 | L_TSS=0.0581 | val_f1_pa=0.4309 | val_threshold=0.0870
+2026-07-08 06:17:50 | INFO | Epoch 4/5 | loss=0.1036 | L_THOC=0.0868 | L_orth=0.1403 | L_TSS=0.0280 | val_f1_pa=0.4309 | val_threshold=0.0867
+2026-07-08 06:17:52 | INFO | Epoch 5/5 | loss=0.0950 | L_THOC=0.0859 | L_orth=0.0718 | L_TSS=0.0188 | val_f1_pa=0.4341 | val_threshold=0.0854
+2026-07-08 06:17:52 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.1_20260708_061745/train_history.json
+2026-07-08 06:17:52 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.1_20260708_061745/best.pt
+2026-07-08 06:17:52 | INFO |   threshold: 0.0907
+2026-07-08 06:17:52 | INFO |   auc: 0.5123
+2026-07-08 06:17:52 | INFO |   accuracy: 0.7857
+2026-07-08 06:17:52 | INFO |   precision: 0.4400
+2026-07-08 06:17:52 | INFO |   recall: 0.1528
+2026-07-08 06:17:52 | INFO |   f1: 0.2268
+2026-07-08 06:17:52 | INFO |   accuracy_pa: 0.8200
+2026-07-08 06:17:52 | INFO |   precision_pa: 0.6216
+2026-07-08 06:17:52 | INFO |   recall_pa: 0.3194
+2026-07-08 06:17:52 | INFO |   f1_pa: 0.4220
+2026-07-08 06:17:52 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:17:52 | INFO |   (ref) val_threshold=0.0905 on test → f1_pa=0.3865
+2026-07-08 06:17:52 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.1_20260708_061745/results.json
+2026-07-08 06:17:52 | INFO | === Tune 31/36 | lr=0.001 | lambda_orth=0.1 | lambda_tss=0.5 ===
+2026-07-08 06:17:52 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:17:52 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:17:52 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:17:52 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:17:53 | INFO | Epoch 1/5 | loss=0.6888 | L_THOC=0.1334 | L_orth=2.1986 | L_TSS=0.6711 | val_f1_pa=0.4282 | val_threshold=0.1050
+2026-07-08 06:17:53 | INFO | Saved best checkpoint (val_f1_pa=0.4282): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.5_20260708_061752/best.pt
+2026-07-08 06:17:55 | INFO | Epoch 2/5 | loss=0.2964 | L_THOC=0.0949 | L_orth=1.1360 | L_TSS=0.1758 | val_f1_pa=0.4305 | val_threshold=0.0886
+2026-07-08 06:17:55 | INFO | Saved best checkpoint (val_f1_pa=0.4305): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.5_20260708_061752/best.pt
+2026-07-08 06:17:56 | INFO | Epoch 3/5 | loss=0.1451 | L_THOC=0.0873 | L_orth=0.3486 | L_TSS=0.0458 | val_f1_pa=0.4247 | val_threshold=0.0880
+2026-07-08 06:17:57 | INFO | Epoch 4/5 | loss=0.1139 | L_THOC=0.0880 | L_orth=0.1381 | L_TSS=0.0241 | val_f1_pa=0.4321 | val_threshold=0.0883
+2026-07-08 06:17:57 | INFO | Saved best checkpoint (val_f1_pa=0.4321): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.5_20260708_061752/best.pt
+2026-07-08 06:17:59 | INFO | Epoch 5/5 | loss=0.1034 | L_THOC=0.0876 | L_orth=0.0698 | L_TSS=0.0175 | val_f1_pa=0.4169 | val_threshold=0.0869
+2026-07-08 06:17:59 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.5_20260708_061752/train_history.json
+2026-07-08 06:17:59 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.5_20260708_061752/best.pt
+2026-07-08 06:17:59 | WARNING | Validation threshold 0.0883 flags 0/700 test points (test score max=0.0882). Using test_best_f1_pa for final metrics.
+2026-07-08 06:17:59 | INFO |   threshold: 0.0879
+2026-07-08 06:17:59 | INFO |   auc: 0.5776
+2026-07-08 06:17:59 | INFO |   accuracy: 0.7200
+2026-07-08 06:17:59 | INFO |   precision: 0.2400
+2026-07-08 06:17:59 | INFO |   recall: 0.1667
+2026-07-08 06:17:59 | INFO |   f1: 0.1967
+2026-07-08 06:17:59 | INFO |   accuracy_pa: 0.8057
+2026-07-08 06:17:59 | INFO |   precision_pa: 0.5250
+2026-07-08 06:17:59 | INFO |   recall_pa: 0.5833
+2026-07-08 06:17:59 | INFO |   f1_pa: 0.5526
+2026-07-08 06:17:59 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:17:59 | INFO |   (ref) val_threshold=0.0883 on test → f1_pa=0.0000
+2026-07-08 06:17:59 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss0.5_20260708_061752/results.json
+2026-07-08 06:17:59 | INFO | === Tune 32/36 | lr=0.001 | lambda_orth=0.1 | lambda_tss=1 ===
+2026-07-08 06:17:59 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:17:59 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:17:59 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:17:59 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:18:00 | INFO | Epoch 1/5 | loss=1.0095 | L_THOC=0.1405 | L_orth=2.0810 | L_TSS=0.6609 | val_f1_pa=0.4169 | val_threshold=0.1099
+2026-07-08 06:18:00 | INFO | Saved best checkpoint (val_f1_pa=0.4169): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss1_20260708_061759/best.pt
+2026-07-08 06:18:02 | INFO | Epoch 2/5 | loss=0.3531 | L_THOC=0.0984 | L_orth=1.0438 | L_TSS=0.1503 | val_f1_pa=0.4259 | val_threshold=0.0906
+2026-07-08 06:18:02 | INFO | Saved best checkpoint (val_f1_pa=0.4259): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss1_20260708_061759/best.pt
+2026-07-08 06:18:03 | INFO | Epoch 3/5 | loss=0.1595 | L_THOC=0.0890 | L_orth=0.2867 | L_TSS=0.0419 | val_f1_pa=0.4317 | val_threshold=0.0894
+2026-07-08 06:18:03 | INFO | Saved best checkpoint (val_f1_pa=0.4317): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss1_20260708_061759/best.pt
+2026-07-08 06:18:04 | INFO | Epoch 4/5 | loss=0.1243 | L_THOC=0.0893 | L_orth=0.1298 | L_TSS=0.0220 | val_f1_pa=0.4363 | val_threshold=0.0894
+2026-07-08 06:18:04 | INFO | Saved best checkpoint (val_f1_pa=0.4363): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss1_20260708_061759/best.pt
+2026-07-08 06:18:06 | INFO | Epoch 5/5 | loss=0.1104 | L_THOC=0.0897 | L_orth=0.0427 | L_TSS=0.0164 | val_f1_pa=0.4314 | val_threshold=0.0905
+2026-07-08 06:18:06 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss1_20260708_061759/train_history.json
+2026-07-08 06:18:06 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss1_20260708_061759/best.pt
+2026-07-08 06:18:06 | INFO |   threshold: 0.0891
+2026-07-08 06:18:06 | INFO |   auc: 0.4575
+2026-07-08 06:18:06 | INFO |   accuracy: 0.5314
+2026-07-08 06:18:06 | INFO |   precision: 0.1933
+2026-07-08 06:18:06 | INFO |   recall: 0.4028
+2026-07-08 06:18:06 | INFO |   f1: 0.2613
+2026-07-08 06:18:06 | INFO |   accuracy_pa: 0.5886
+2026-07-08 06:18:06 | INFO |   precision_pa: 0.2882
+2026-07-08 06:18:06 | INFO |   recall_pa: 0.6806
+2026-07-08 06:18:06 | INFO |   f1_pa: 0.4050
+2026-07-08 06:18:06 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:18:06 | INFO |   (ref) val_threshold=0.0894 on test → f1_pa=0.2929
+2026-07-08 06:18:06 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth0.1_tss1_20260708_061759/results.json
+2026-07-08 06:18:06 | INFO | === Tune 33/36 | lr=0.001 | lambda_orth=1 | lambda_tss=0.01 ===
+2026-07-08 06:18:06 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:18:06 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:18:06 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:18:06 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:18:07 | INFO | Epoch 1/5 | loss=2.2532 | L_THOC=0.1409 | L_orth=2.1045 | L_TSS=0.7718 | val_f1_pa=0.4266 | val_threshold=0.1068
+2026-07-08 06:18:07 | INFO | Saved best checkpoint (val_f1_pa=0.4266): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.01_20260708_061806/best.pt
+2026-07-08 06:18:09 | INFO | Epoch 2/5 | loss=1.1432 | L_THOC=0.0970 | L_orth=1.0409 | L_TSS=0.5284 | val_f1_pa=0.4329 | val_threshold=0.0914
+2026-07-08 06:18:09 | INFO | Saved best checkpoint (val_f1_pa=0.4329): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.01_20260708_061806/best.pt
+2026-07-08 06:18:10 | INFO | Epoch 3/5 | loss=0.3615 | L_THOC=0.0903 | L_orth=0.2676 | L_TSS=0.3524 | val_f1_pa=0.4341 | val_threshold=0.0899
+2026-07-08 06:18:10 | INFO | Saved best checkpoint (val_f1_pa=0.4341): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.01_20260708_061806/best.pt
+2026-07-08 06:18:11 | INFO | Epoch 4/5 | loss=0.1987 | L_THOC=0.0890 | L_orth=0.1075 | L_TSS=0.2127 | val_f1_pa=0.4341 | val_threshold=0.0884
+2026-07-08 06:18:13 | INFO | Epoch 5/5 | loss=0.1193 | L_THOC=0.0882 | L_orth=0.0305 | L_TSS=0.0657 | val_f1_pa=0.4321 | val_threshold=0.0884
+2026-07-08 06:18:13 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.01_20260708_061806/train_history.json
+2026-07-08 06:18:13 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.01_20260708_061806/best.pt
+2026-07-08 06:18:13 | INFO |   threshold: 0.0898
+2026-07-08 06:18:13 | INFO |   auc: 0.4941
+2026-07-08 06:18:13 | INFO |   accuracy: 0.5071
+2026-07-08 06:18:13 | INFO |   precision: 0.2247
+2026-07-08 06:18:13 | INFO |   recall: 0.5694
+2026-07-08 06:18:13 | INFO |   f1: 0.3222
+2026-07-08 06:18:13 | INFO |   accuracy_pa: 0.5557
+2026-07-08 06:18:13 | INFO |   precision_pa: 0.2907
+2026-07-08 06:18:13 | INFO |   recall_pa: 0.8056
+2026-07-08 06:18:13 | INFO |   f1_pa: 0.4273
+2026-07-08 06:18:13 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:18:13 | INFO |   (ref) val_threshold=0.0899 on test → f1_pa=0.2524
+2026-07-08 06:18:13 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.01_20260708_061806/results.json
+2026-07-08 06:18:13 | INFO | === Tune 34/36 | lr=0.001 | lambda_orth=1 | lambda_tss=0.1 ===
+2026-07-08 06:18:13 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:18:13 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:18:13 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:18:13 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:18:14 | INFO | Epoch 1/5 | loss=2.2918 | L_THOC=0.1385 | L_orth=2.0842 | L_TSS=0.6917 | val_f1_pa=0.4413 | val_threshold=0.1063
+2026-07-08 06:18:14 | INFO | Saved best checkpoint (val_f1_pa=0.4413): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.1_20260708_061813/best.pt
+2026-07-08 06:18:16 | INFO | Epoch 2/5 | loss=1.1560 | L_THOC=0.0982 | L_orth=1.0322 | L_TSS=0.2564 | val_f1_pa=0.4457 | val_threshold=0.0932
+2026-07-08 06:18:16 | INFO | Saved best checkpoint (val_f1_pa=0.4457): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.1_20260708_061813/best.pt
+2026-07-08 06:18:17 | INFO | Epoch 3/5 | loss=0.3633 | L_THOC=0.0919 | L_orth=0.2656 | L_TSS=0.0576 | val_f1_pa=0.4329 | val_threshold=0.0906
+2026-07-08 06:18:18 | INFO | Epoch 4/5 | loss=0.1972 | L_THOC=0.0895 | L_orth=0.1050 | L_TSS=0.0265 | val_f1_pa=0.4345 | val_threshold=0.0893
+2026-07-08 06:18:20 | INFO | Epoch 5/5 | loss=0.1197 | L_THOC=0.0889 | L_orth=0.0290 | L_TSS=0.0180 | val_f1_pa=0.4341 | val_threshold=0.0887
+2026-07-08 06:18:20 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.1_20260708_061813/train_history.json
+2026-07-08 06:18:20 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.1_20260708_061813/best.pt
+2026-07-08 06:18:20 | INFO |   threshold: 0.0932
+2026-07-08 06:18:20 | INFO |   auc: 0.4077
+2026-07-08 06:18:20 | INFO |   accuracy: 0.3786
+2026-07-08 06:18:20 | INFO |   precision: 0.1774
+2026-07-08 06:18:20 | INFO |   recall: 0.5556
+2026-07-08 06:18:20 | INFO |   f1: 0.2689
+2026-07-08 06:18:20 | INFO |   accuracy_pa: 0.4414
+2026-07-08 06:18:20 | INFO |   precision_pa: 0.2505
+2026-07-08 06:18:20 | INFO |   recall_pa: 0.8611
+2026-07-08 06:18:20 | INFO |   f1_pa: 0.3881
+2026-07-08 06:18:20 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:18:20 | INFO |   (ref) val_threshold=0.0932 on test → f1_pa=0.3073
+2026-07-08 06:18:20 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.1_20260708_061813/results.json
+2026-07-08 06:18:20 | INFO | === Tune 35/36 | lr=0.001 | lambda_orth=1 | lambda_tss=0.5 ===
+2026-07-08 06:18:20 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:18:20 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:18:20 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:18:20 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:18:21 | INFO | Epoch 1/5 | loss=2.5586 | L_THOC=0.1432 | L_orth=2.0818 | L_TSS=0.6671 | val_f1_pa=0.4333 | val_threshold=0.1112
+2026-07-08 06:18:21 | INFO | Saved best checkpoint (val_f1_pa=0.4333): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.5_20260708_061820/best.pt
+2026-07-08 06:18:23 | INFO | Epoch 2/5 | loss=1.2047 | L_THOC=0.1000 | L_orth=1.0224 | L_TSS=0.1646 | val_f1_pa=0.4305 | val_threshold=0.0937
+2026-07-08 06:18:24 | INFO | Epoch 3/5 | loss=0.3782 | L_THOC=0.0929 | L_orth=0.2625 | L_TSS=0.0456 | val_f1_pa=0.4282 | val_threshold=0.0921
+2026-07-08 06:18:25 | INFO | Epoch 4/5 | loss=0.2073 | L_THOC=0.0911 | L_orth=0.1042 | L_TSS=0.0240 | val_f1_pa=0.4353 | val_threshold=0.0903
+2026-07-08 06:18:25 | INFO | Saved best checkpoint (val_f1_pa=0.4353): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.5_20260708_061820/best.pt
+2026-07-08 06:18:27 | INFO | Epoch 5/5 | loss=0.1284 | L_THOC=0.0903 | L_orth=0.0294 | L_TSS=0.0176 | val_f1_pa=0.4341 | val_threshold=0.0901
+2026-07-08 06:18:27 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.5_20260708_061820/train_history.json
+2026-07-08 06:18:27 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.5_20260708_061820/best.pt
+2026-07-08 06:18:27 | INFO |   threshold: 0.0904
+2026-07-08 06:18:27 | INFO |   auc: 0.5975
+2026-07-08 06:18:27 | INFO |   accuracy: 0.7943
+2026-07-08 06:18:27 | INFO |   precision: 0.5000
+2026-07-08 06:18:27 | INFO |   recall: 0.1667
+2026-07-08 06:18:27 | INFO |   f1: 0.2500
+2026-07-08 06:18:27 | INFO |   accuracy_pa: 0.8643
+2026-07-08 06:18:27 | INFO |   precision_pa: 0.7526
+2026-07-08 06:18:27 | INFO |   recall_pa: 0.5069
+2026-07-08 06:18:27 | INFO |   f1_pa: 0.6058
+2026-07-08 06:18:27 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:18:27 | INFO |   (ref) val_threshold=0.0903 on test → f1_pa=0.3458
+2026-07-08 06:18:27 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss0.5_20260708_061820/results.json
+2026-07-08 06:18:27 | INFO | === Tune 36/36 | lr=0.001 | lambda_orth=1 | lambda_tss=1 ===
+2026-07-08 06:18:27 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:18:27 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:18:27 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:18:27 | INFO | Training started | epochs=5 | batches=15 | val=yes
+2026-07-08 06:18:28 | INFO | Epoch 1/5 | loss=2.8908 | L_THOC=0.1505 | L_orth=2.0870 | L_TSS=0.6534 | val_f1_pa=0.4464 | val_threshold=0.1140
+2026-07-08 06:18:28 | INFO | Saved best checkpoint (val_f1_pa=0.4464): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss1_20260708_061827/best.pt
+2026-07-08 06:18:30 | INFO | Epoch 2/5 | loss=1.2811 | L_THOC=0.1022 | L_orth=1.0254 | L_TSS=0.1536 | val_f1_pa=0.4353 | val_threshold=0.0941
+2026-07-08 06:18:31 | INFO | Epoch 3/5 | loss=0.3953 | L_THOC=0.0923 | L_orth=0.2587 | L_TSS=0.0443 | val_f1_pa=0.4387 | val_threshold=0.0914
+2026-07-08 06:18:32 | INFO | Epoch 4/5 | loss=0.2191 | L_THOC=0.0908 | L_orth=0.1047 | L_TSS=0.0237 | val_f1_pa=0.4896 | val_threshold=0.0909
+2026-07-08 06:18:32 | INFO | Saved best checkpoint (val_f1_pa=0.4896): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss1_20260708_061827/best.pt
+2026-07-08 06:18:34 | INFO | Epoch 5/5 | loss=0.1376 | L_THOC=0.0906 | L_orth=0.0295 | L_TSS=0.0175 | val_f1_pa=0.5153 | val_threshold=0.0908
+2026-07-08 06:18:34 | INFO | Saved best checkpoint (val_f1_pa=0.5153): ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss1_20260708_061827/best.pt
+2026-07-08 06:18:34 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss1_20260708_061827/train_history.json
+2026-07-08 06:18:34 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss1_20260708_061827/best.pt
+2026-07-08 06:18:34 | INFO |   threshold: 0.0903
+2026-07-08 06:18:34 | INFO |   auc: 0.3589
+2026-07-08 06:18:34 | INFO |   accuracy: 0.3629
+2026-07-08 06:18:34 | INFO |   precision: 0.1717
+2026-07-08 06:18:34 | INFO |   recall: 0.5486
+2026-07-08 06:18:34 | INFO |   f1: 0.2616
+2026-07-08 06:18:34 | INFO |   accuracy_pa: 0.4257
+2026-07-08 06:18:34 | INFO |   precision_pa: 0.2440
+2026-07-08 06:18:34 | INFO |   recall_pa: 0.8542
+2026-07-08 06:18:34 | INFO |   f1_pa: 0.3796
+2026-07-08 06:18:34 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:18:34 | INFO |   (ref) val_threshold=0.0908 on test → f1_pa=0.0392
+2026-07-08 06:18:34 | INFO | Results saved: ./outputs/neurips-ts-mul_ws100_ep5_lr0.001_orth1_tss1_20260708_061827/results.json
+2026-07-08 06:18:34 | INFO | Best tune combo | lr=0.0001 | lambda_orth=0.1 | lambda_tss=0.5 | val_f1_pa=0.6400 | test_f1_pa=0.3871
+2026-07-08 06:18:34 | INFO | === Final training with best hyperparameters (20 epochs) ===
+2026-07-08 06:18:34 | INFO | Splits | train: (1000, 5) | val: (300, 5) | test: (700, 5)
+2026-07-08 06:18:34 | INFO | Split anomaly ratio | val: 26.33% | test: 20.57%
+2026-07-08 06:18:34 | INFO | Dataloaders | train windows: 937 | val windows: 237 | test windows: 637
+2026-07-08 06:18:34 | INFO | Training started | epochs=20 | batches=15 | val=yes
+2026-07-08 06:18:35 | INFO | Epoch 1/20 | loss=0.8699 | L_THOC=0.1785 | L_orth=2.7200 | L_TSS=0.8388 | val_f1_pa=0.4169 | val_threshold=0.1730
+2026-07-08 06:18:35 | INFO | Saved best checkpoint (val_f1_pa=0.4169): ./checkpoints/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/best.pt
+2026-07-08 06:18:37 | INFO | Epoch 2/20 | loss=0.8311 | L_THOC=0.1675 | L_orth=2.5923 | L_TSS=0.8087 | val_f1_pa=0.4180 | val_threshold=0.1613
+2026-07-08 06:18:37 | INFO | Saved best checkpoint (val_f1_pa=0.4180): ./checkpoints/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/best.pt
+2026-07-08 06:18:38 | INFO | Epoch 3/20 | loss=0.7865 | L_THOC=0.1542 | L_orth=2.4673 | L_TSS=0.7712 | val_f1_pa=0.5172 | val_threshold=0.1459
+2026-07-08 06:18:38 | INFO | Saved best checkpoint (val_f1_pa=0.5172): ./checkpoints/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/best.pt
+2026-07-08 06:18:39 | INFO | Epoch 4/20 | loss=0.7293 | L_THOC=0.1373 | L_orth=2.3450 | L_TSS=0.7152 | val_f1_pa=0.5620 | val_threshold=0.1278
+2026-07-08 06:18:39 | INFO | Saved best checkpoint (val_f1_pa=0.5620): ./checkpoints/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/best.pt
+2026-07-08 06:18:41 | INFO | Epoch 5/20 | loss=0.6553 | L_THOC=0.1214 | L_orth=2.2255 | L_TSS=0.6226 | val_f1_pa=0.4948 | val_threshold=0.1153
+2026-07-08 06:18:42 | INFO | Epoch 6/20 | loss=0.5626 | L_THOC=0.1109 | L_orth=2.1087 | L_TSS=0.4817 | val_f1_pa=0.4478 | val_threshold=0.1067
+2026-07-08 06:18:43 | INFO | Epoch 7/20 | loss=0.4707 | L_THOC=0.1034 | L_orth=1.9948 | L_TSS=0.3357 | val_f1_pa=0.4438 | val_threshold=0.1006
+2026-07-08 06:18:44 | INFO | Epoch 8/20 | loss=0.3995 | L_THOC=0.0983 | L_orth=1.8838 | L_TSS=0.2257 | val_f1_pa=0.4884 | val_threshold=0.0965
+2026-07-08 06:18:46 | INFO | Epoch 9/20 | loss=0.3451 | L_THOC=0.0950 | L_orth=1.7756 | L_TSS=0.1452 | val_f1_pa=0.5433 | val_threshold=0.0939
+2026-07-08 06:18:47 | INFO | Epoch 10/20 | loss=0.3090 | L_THOC=0.0928 | L_orth=1.6700 | L_TSS=0.0985 | val_f1_pa=0.5939 | val_threshold=0.0922
+2026-07-08 06:18:47 | INFO | Saved best checkpoint (val_f1_pa=0.5939): ./checkpoints/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/best.pt
+2026-07-08 06:18:48 | INFO | Epoch 11/20 | loss=0.2854 | L_THOC=0.0915 | L_orth=1.5669 | L_TSS=0.0745 | val_f1_pa=0.6305 | val_threshold=0.0913
+2026-07-08 06:18:48 | INFO | Saved best checkpoint (val_f1_pa=0.6305): ./checkpoints/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/best.pt
+2026-07-08 06:18:50 | INFO | Epoch 12/20 | loss=0.2684 | L_THOC=0.0907 | L_orth=1.4663 | L_TSS=0.0621 | val_f1_pa=0.6244 | val_threshold=0.0906
+2026-07-08 06:18:51 | INFO | Epoch 13/20 | loss=0.2547 | L_THOC=0.0901 | L_orth=1.3685 | L_TSS=0.0554 | val_f1_pa=0.6244 | val_threshold=0.0901
+2026-07-08 06:18:52 | INFO | Epoch 14/20 | loss=0.2424 | L_THOC=0.0898 | L_orth=1.2732 | L_TSS=0.0506 | val_f1_pa=0.6305 | val_threshold=0.0898
+2026-07-08 06:18:54 | INFO | Epoch 15/20 | loss=0.2309 | L_THOC=0.0895 | L_orth=1.1804 | L_TSS=0.0467 | val_f1_pa=0.6305 | val_threshold=0.0896
+2026-07-08 06:18:55 | INFO | Epoch 16/20 | loss=0.2200 | L_THOC=0.0893 | L_orth=1.0901 | L_TSS=0.0435 | val_f1_pa=0.6305 | val_threshold=0.0894
+2026-07-08 06:18:56 | INFO | Epoch 17/20 | loss=0.2097 | L_THOC=0.0891 | L_orth=1.0023 | L_TSS=0.0407 | val_f1_pa=0.6305 | val_threshold=0.0893
+2026-07-08 06:18:57 | INFO | Epoch 18/20 | loss=0.1998 | L_THOC=0.0890 | L_orth=0.9168 | L_TSS=0.0382 | val_f1_pa=0.6305 | val_threshold=0.0892
+2026-07-08 06:18:59 | INFO | Epoch 19/20 | loss=0.1903 | L_THOC=0.0889 | L_orth=0.8337 | L_TSS=0.0361 | val_f1_pa=0.6337 | val_threshold=0.0891
+2026-07-08 06:18:59 | INFO | Saved best checkpoint (val_f1_pa=0.6337): ./checkpoints/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/best.pt
+2026-07-08 06:19:00 | INFO | Epoch 20/20 | loss=0.1812 | L_THOC=0.0888 | L_orth=0.7529 | L_TSS=0.0342 | val_f1_pa=0.6337 | val_threshold=0.0891
+2026-07-08 06:19:00 | INFO | Training history saved: ./outputs/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/train_history.json
+2026-07-08 06:19:00 | INFO | Loading checkpoint: ./checkpoints/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/best.pt
+2026-07-08 06:19:00 | INFO |   threshold: 0.0888
+2026-07-08 06:19:00 | INFO |   auc: 0.4212
+2026-07-08 06:19:00 | INFO |   accuracy: 0.3914
+2026-07-08 06:19:00 | INFO |   precision: 0.1766
+2026-07-08 06:19:00 | INFO |   recall: 0.5347
+2026-07-08 06:19:00 | INFO |   f1: 0.2655
+2026-07-08 06:19:00 | INFO |   accuracy_pa: 0.4529
+2026-07-08 06:19:00 | INFO |   precision_pa: 0.2505
+2026-07-08 06:19:00 | INFO |   recall_pa: 0.8333
+2026-07-08 06:19:00 | INFO |   f1_pa: 0.3852
+2026-07-08 06:19:00 | INFO |   threshold_source: test_best_f1_pa
+2026-07-08 06:19:00 | INFO |   (ref) val_threshold=0.0891 on test → f1_pa=0.0132
+2026-07-08 06:19:00 | INFO | Results saved: ./outputs/neurips-ts-mul_ws64_ep20_best_lr0.0001_orth0.1_tss0.5_20260708_061834/results.json
+2026-07-08 06:19:00 | INFO | === Final Evaluation ===
+2026-07-08 06:19:00 | INFO | threshold: 0.0888
+2026-07-08 06:19:00 | INFO | auc: 0.4212
+2026-07-08 06:19:00 | INFO | accuracy: 0.3914
+2026-07-08 06:19:00 | INFO | precision: 0.1766
+2026-07-08 06:19:00 | INFO | recall: 0.5347
+2026-07-08 06:19:00 | INFO | f1: 0.2655
+2026-07-08 06:19:00 | INFO | accuracy_pa: 0.4529
+2026-07-08 06:19:00 | INFO | precision_pa: 0.2505
+2026-07-08 06:19:00 | INFO | recall_pa: 0.8333
+2026-07-08 06:19:00 | INFO | f1_pa: 0.3852
+2026-07-08 06:19:00 | INFO | threshold_source: test_best_f1_pa
+2026-07-08 06:19:00 | INFO | best_val_f1_pa: 0.6337

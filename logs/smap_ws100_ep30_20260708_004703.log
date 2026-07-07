@@ -1,0 +1,76 @@
+2026-07-08 00:47:03 | INFO | Experiment: smap_ws100_ep30_20260708_004703
+2026-07-08 00:47:03 | INFO | Dataset: SMAP | data_dir: data/SMAP
+2026-07-08 00:47:03 | INFO | Config | window=100 | stride=1 | test_stride=100 | epochs=30 | device=mps
+2026-07-08 00:47:03 | INFO | Data loaded | train: (135183, 25) | test: (427617, 25) | channels: 25 | anomaly ratio: 12.79%
+2026-07-08 00:47:03 | INFO | Dataloaders | train windows: 135084 | test windows: 4276
+2026-07-08 00:47:03 | INFO | Training started | epochs=30 | batches=2111
+2026-07-08 00:50:06 | INFO | Epoch 1/30 | loss=0.9490 | L_THOC=0.0889 | L_orth=0.0304 | L_TSS=0.8297
+2026-07-08 00:50:06 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 00:53:11 | INFO | Epoch 2/30 | loss=0.8932 | L_THOC=0.0884 | L_orth=0.0035 | L_TSS=0.8012
+2026-07-08 00:53:11 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 00:56:14 | INFO | Epoch 3/30 | loss=0.8821 | L_THOC=0.0884 | L_orth=0.0035 | L_TSS=0.7901
+2026-07-08 00:56:14 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 00:59:20 | INFO | Epoch 4/30 | loss=0.8802 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7882
+2026-07-08 00:59:20 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 01:02:25 | INFO | Epoch 5/30 | loss=0.8798 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7877
+2026-07-08 01:02:25 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 01:05:29 | INFO | Epoch 6/30 | loss=0.8799 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7879
+2026-07-08 01:08:30 | INFO | Epoch 7/30 | loss=0.8802 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7882
+2026-07-08 01:11:30 | INFO | Epoch 8/30 | loss=0.8800 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7880
+2026-07-08 01:14:29 | INFO | Epoch 9/30 | loss=0.8797 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7877
+2026-07-08 01:14:29 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 01:17:32 | INFO | Epoch 10/30 | loss=0.8799 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7879
+2026-07-08 01:20:35 | INFO | Epoch 11/30 | loss=0.8800 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7880
+2026-07-08 01:23:39 | INFO | Epoch 12/30 | loss=0.8795 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7876
+2026-07-08 01:23:39 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 01:26:40 | INFO | Epoch 13/30 | loss=0.8788 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7868
+2026-07-08 01:26:40 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 01:29:44 | INFO | Epoch 14/30 | loss=0.8800 | L_THOC=0.0884 | L_orth=0.0037 | L_TSS=0.7880
+2026-07-08 01:32:47 | INFO | Epoch 15/30 | loss=0.8788 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7868
+2026-07-08 01:32:47 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 01:35:50 | INFO | Epoch 16/30 | loss=0.8789 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7869
+2026-07-08 01:38:54 | INFO | Epoch 17/30 | loss=0.8788 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7868
+2026-07-08 01:41:55 | INFO | Epoch 18/30 | loss=0.8785 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7865
+2026-07-08 01:41:55 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 01:44:55 | INFO | Epoch 19/30 | loss=0.8779 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7859
+2026-07-08 01:44:55 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 01:47:56 | INFO | Epoch 20/30 | loss=0.8781 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7862
+2026-07-08 01:50:56 | INFO | Epoch 21/30 | loss=0.8789 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7869
+2026-07-08 01:54:01 | INFO | Epoch 22/30 | loss=0.8788 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7868
+2026-07-08 01:57:02 | INFO | Epoch 23/30 | loss=0.8779 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7860
+2026-07-08 02:00:05 | INFO | Epoch 24/30 | loss=0.8784 | L_THOC=0.0884 | L_orth=0.0035 | L_TSS=0.7864
+2026-07-08 02:03:07 | INFO | Epoch 25/30 | loss=0.8774 | L_THOC=0.0884 | L_orth=0.0035 | L_TSS=0.7855
+2026-07-08 02:03:07 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 02:06:08 | INFO | Epoch 26/30 | loss=0.8774 | L_THOC=0.0884 | L_orth=0.0035 | L_TSS=0.7855
+2026-07-08 02:09:07 | INFO | Epoch 27/30 | loss=0.8779 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7859
+2026-07-08 02:12:05 | INFO | Epoch 28/30 | loss=0.8769 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7849
+2026-07-08 02:12:05 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 02:15:02 | INFO | Epoch 29/30 | loss=0.8767 | L_THOC=0.0884 | L_orth=0.0035 | L_TSS=0.7848
+2026-07-08 02:15:02 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 02:18:02 | INFO | Epoch 30/30 | loss=0.8766 | L_THOC=0.0884 | L_orth=0.0036 | L_TSS=0.7846
+2026-07-08 02:18:03 | INFO | Saved best checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 02:18:03 | INFO | Training history saved: ./outputs/smap_ws100_ep30_20260708_004703/train_history.json
+2026-07-08 02:18:03 | INFO | Loading checkpoint: ./checkpoints/smap_ws100_ep30_20260708_004703/best.pt
+2026-07-08 02:18:03 | INFO | Running inference...
+2026-07-08 02:18:05 | INFO |   threshold: 0.0880
+2026-07-08 02:18:05 | INFO |   auc: 0.3953
+2026-07-08 02:18:05 | INFO |   accuracy: 0.2283
+2026-07-08 02:18:05 | INFO |   precision: 0.1319
+2026-07-08 02:18:05 | INFO |   recall: 0.9014
+2026-07-08 02:18:05 | INFO |   f1: 0.2301
+2026-07-08 02:18:05 | INFO |   accuracy_pa: 0.2403
+2026-07-08 02:18:05 | INFO |   precision_pa: 0.1436
+2026-07-08 02:18:05 | INFO |   recall_pa: 0.9952
+2026-07-08 02:18:05 | INFO |   f1_pa: 0.2510
+2026-07-08 02:18:05 | INFO | Results saved: ./outputs/smap_ws100_ep30_20260708_004703/results.json
+2026-07-08 02:18:05 | INFO | === Final Evaluation ===
+2026-07-08 02:18:05 | INFO | threshold: 0.0880
+2026-07-08 02:18:05 | INFO | auc: 0.3953
+2026-07-08 02:18:05 | INFO | accuracy: 0.2283
+2026-07-08 02:18:05 | INFO | precision: 0.1319
+2026-07-08 02:18:05 | INFO | recall: 0.9014
+2026-07-08 02:18:05 | INFO | f1: 0.2301
+2026-07-08 02:18:05 | INFO | accuracy_pa: 0.2403
+2026-07-08 02:18:05 | INFO | precision_pa: 0.1436
+2026-07-08 02:18:05 | INFO | recall_pa: 0.9952
+2026-07-08 02:18:05 | INFO | f1_pa: 0.2510
