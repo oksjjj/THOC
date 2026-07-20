@@ -21,7 +21,13 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from thoc.logger import log_banner, log_evaluation_summary, save_json
-from thoc.metrics import ThresholdMethod, evaluate_anomaly_detection, select_threshold
+from thoc.metrics import (
+    ThresholdMethod,
+    evaluate_anomaly_detection,
+    format_pa_classification_section,
+    format_pa_ranking_section,
+    select_threshold,
+)
 from thoc.model import THOC
 
 InferThresholdPolicy = Literal["test_best_f1_pa", "validation"]
@@ -347,46 +353,30 @@ class THOCTrainer:
 
         primary_label = threshold_source
         if threshold_source == "validation":
-            primary_note = "primary metric (threshold from validation)"
+            primary_note = "primary (threshold from validation)"
         elif threshold_source == "manual":
             primary_note = "manual threshold"
         else:
-            primary_note = "oracle upper bound (threshold fit on test labels)"
+            primary_label = "best-F1"
+            primary_note = "oracle (threshold fit on test labels)"
 
-        primary_metrics = {
-            "F1-PA": results["f1_pa"],
-            "Precision-PA": results["precision_pa"],
-            "Recall-PA": results["recall_pa"],
-            "F1": results["f1"],
-            "Precision": results["precision"],
-            "Recall": results["recall"],
-            "AUC": results["auc"],
-            "Threshold": results["threshold"],
-            "Source": threshold_source,
-        }
+        primary_metrics = format_pa_classification_section(results)
+        ranking_metrics = format_pa_ranking_section(results)
 
         reference_metrics = None
         reference_label = None
         reference_note = None
         if threshold_source == "validation":
-            reference_label = "test_best_f1_pa"
-            reference_note = "oracle upper bound (threshold fit on test labels)"
-            reference_metrics = {
-                "F1-PA": test_tuned["f1_pa"],
-                "Precision-PA": test_tuned["precision_pa"],
-                "Recall-PA": test_tuned["recall_pa"],
-                "F1": test_tuned["f1"],
-                "Precision": test_tuned["precision"],
-                "Recall": test_tuned["recall"],
-                "Threshold": test_threshold,
-            }
+            reference_label = "best-F1"
+            reference_note = "oracle (threshold fit on test labels)"
+            reference_metrics = format_pa_classification_section(test_tuned)
 
         training_info: dict[str, float | str] = {
             "best_val_f1_pa": self.state.best_val_f1_pa,
             "best_threshold": (
-                f"{self.state.best_threshold:.4f}"
+                f"{self.state.best_threshold:.6f}"
                 if self.state.best_threshold is not None
-                else "N/A"
+                else "-"
             ),
             "lr": self.config.lr,
             "lambda_orth": self.config.lambda_orth,
@@ -402,6 +392,7 @@ class THOCTrainer:
             reference=reference_metrics,
             reference_label=reference_label,
             reference_note=reference_note,
+            ranking=ranking_metrics,
             training=training_info,
         )
 

@@ -78,7 +78,9 @@ def log_evaluation_summary(
     reference: dict[str, Any] | None = None,
     reference_label: str | None = None,
     reference_note: str | None = None,
+    ranking: dict[str, Any] | None = None,
     training: dict[str, Any] | None = None,
+    subtitle: str = "(포인트 보정 후 — all classification metrics)",
 ) -> None:
     """
     Boxed evaluation summary matching the testlog style.
@@ -86,31 +88,39 @@ def log_evaluation_summary(
     Example:
       ============================================================
        EVALUATION SUMMARY
+       (포인트 보정 후 — all classification metrics)
       ============================================================
-      [validation]  <-- primary ...
+      [validation]  포인트 보정 후 | primary (threshold from validation)
       ------------------------------------------------------------
-        F1-PA       0.5000
+        F1          0.5000
         ...
     """
     lines: list[str] = [
         "",
         "=" * _BANNER_WIDTH,
         " EVALUATION SUMMARY",
+        f" {subtitle}",
         "=" * _BANNER_WIDTH,
         "",
     ]
 
-    note = f"  <-- {primary_note}" if primary_note else ""
-    lines.append(f"[{primary_label}]{note}")
+    lines.append(_section_header(primary_label, primary_note))
     lines.append("-" * _BANNER_WIDTH)
     lines.extend(_format_kv_lines(primary))
 
     if reference is not None and reference_label is not None:
-        note = f"  <-- {reference_note}" if reference_note else ""
         lines.append("")
-        lines.append(f"[{reference_label}]{note}")
+        lines.append(_section_header(reference_label, reference_note or ""))
         lines.append("-" * _BANNER_WIDTH)
         lines.extend(_format_kv_lines(reference))
+
+    if ranking is not None:
+        lines.append("")
+        lines.append(
+            "[Ranking]  포인트 보정 후 | AUROC / AUPRC (PA at each threshold)"
+        )
+        lines.append("-" * _BANNER_WIDTH)
+        lines.extend(_format_kv_lines(ranking))
 
     if training:
         lines.append("")
@@ -120,6 +130,10 @@ def log_evaluation_summary(
 
     lines.append("=" * _BANNER_WIDTH)
     logger.info("\n".join(lines))
+
+
+def _section_header(label: str, note: str) -> str:
+    return f"[{label}]  포인트 보정 후 | {note}"
 
 
 def _centered_banner(title: str, char: str = "=", width: int = _BANNER_WIDTH) -> str:
@@ -136,7 +150,9 @@ def _format_kv_lines(
     pairs = items.items() if isinstance(items, dict) else items
     lines: list[str] = []
     for key, value in pairs:
-        if isinstance(value, float):
+        if key == "Threshold" and isinstance(value, (float, int)):
+            lines.append(f"  {key:<{key_width}} {float(value):.6f}")
+        elif isinstance(value, float):
             lines.append(f"  {key:<{key_width}} {value:.4f}")
         else:
             lines.append(f"  {key:<{key_width}} {value}")

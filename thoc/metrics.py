@@ -19,6 +19,7 @@ from typing import Literal
 import numpy as np
 from sklearn.metrics import (
     accuracy_score,
+    average_precision_score,
     f1_score,
     precision_score,
     recall_score,
@@ -60,6 +61,138 @@ def point_adjust(labels: np.ndarray, predictions: np.ndarray) -> np.ndarray:
 
     return adjusted
 
+
+def confusion_counts(
+    labels: np.ndarray,
+    predictions: np.ndarray,
+) -> dict[str, int]:
+    """TP / TN / FP / FN from binary predictions."""
+    labels = labels.astype(int)
+    predictions = predictions.astype(int)
+    tp = int(((labels == 1) & (predictions == 1)).sum())
+    tn = int(((labels == 0) & (predictions == 0)).sum())
+    fp = int(((labels == 0) & (predictions == 1)).sum())
+    fn = int(((labels == 1) & (predictions == 0)).sum())
+    return {"tp": tp, "tn": tn, "fp": fp, "fn": fn}
+
+
+def detection_latency(labels: np.ndarray, predictions: np.ndarray) -> float:
+    """
+    이상 구간 시작부터 첫 탐지까지 평균 지연(스텝).
+
+    각 GT 이상 구간에서 prediction==1 이 처음 나타난 시점까지의 거리를 평균.
+    """
+    delays: list[int] = []
+    idx = 0
+    n = len(labels)
+    while idx < n:
+        if labels[idx] != 1:
+            idx += 1
+            continue
+
+        seg_start = idx
+        detected = False
+        while idx < n and labels[idx] == 1:
+            if predictions[idx] == 1:
+                delays.append(idx - seg_start)
+                detected = True
+                break
+            idx += 1
+        while idx < n and labels[idx] == 1:
+            idx += 1
+        if not detected:
+            continue
+
+    return float(np.mean(delays)) if delays else 0.0
+
+
+def _pa_rates_at_threshold(
+    labels: np.ndarray,
+    scores: np.ndarray,
+    threshold: float,
+) -> tuple[float, float, float, float]:
+    predictions = (scores > threshold).astype(int)
+    pa_predictions = point_adjust(labels, predictions)
+    counts = confusion_counts(labels, pa_predictions)
+    tp, fn, fp, tn = counts["tp"], counts["fn"], counts["fp"], counts["tn"]
+    tpr = tp / (tp + fn) if tp + fn > 0 else 0.0
+    fpr = fp / (fp + tn) if fp + tn > 0 else 0.0
+    precision = tp / (tp + fp) if tp + fp > 0 else 0.0
+    return tpr, fpr, precision, tpr
+
+
+def pa_ranking_metrics(
+    labels: np.ndarray,
+    scores: np.ndarray,
+    n_steps: int = 500,
+) -> dict[str, float]:
+    """
+    각 threshold 에 point-adjust 후 TPR/FPR·Precision/Recall 을 구해
+    AUROC / AUPRC 를 적분 (testlog Ranking 섹션).
+    """
+    if len(scores) == 0:
+        return {"auroc_pa": 0.5, "auprc_pa": 0.0}
+
+    lo, hi = float(np.min(scores)), float(np.max(scores))
+    if lo == hi:
+        return {"auroc_pa": 0.5, "auprc_pa": 0.0}
+
+    margin = max((hi - lo) * 0.01, 1e-6)
+    thresholds = np.linspace(hi + margin, lo - margin, n_steps)
+
+    fprs: list[float] = []
+    tprs: list[float] = []
+    precisions: list[float] = []
+    recalls: list[float] = []
+    for threshold in thresholds:
+        tpr, fpr, precision, recall = _pa_rates_at_threshold(labels, scores, threshold)
+        fprs.append(fpr)
+        tprs.append(tpr)
+        precisions.append(precision)
+        recalls.append(recall)
+
+    fpr_arr = np.asarray(fprs, dtype=np.float64)
+    tpr_arr = np.asarray(tprs, dtype=np.float64)
+    order = np.argsort(fpr_arr)
+    auroc_pa = float(np.trapezoid(tpr_arr[order], fpr_arr[order]))
+
+    recall_arr = np.asarray(recalls, dtype=np.float64)
+    precision_arr = np.asarray(precisions, dtype=np.float64)
+    order = np.argsort(recall_arr)
+    recall_sorted = recall_arr[order]
+    precision_sorted = precision_arr[order]
+    for idx in range(len(precision_sorted) - 2, -1, -1):
+        precision_sorted[idx] = max(precision_sorted[idx], precision_sorted[idx + 1])
+
+    recall_curve = np.concatenate([[0.0], recall_sorted, [1.0]])
+    precision_curve = np.concatenate(
+        [[precision_sorted[0] if len(precision_sorted) else 0.0], precision_sorted, [0.0]]
+    )
+    auprc_pa = 0.0
+    for idx in range(len(recall_curve) - 1):
+        auprc_pa += (recall_curve[idx + 1] - recall_curve[idx]) * precision_curve[idx + 1]
+
+    return {"auroc_pa": auroc_pa, "auprc_pa": float(auprc_pa)}
+
+
+def format_pa_classification_section(metrics: dict[str, float]) -> dict[str, float | str]:
+    """testlog EVALUATION SUMMARY 분류 지표 블록 (모두 PA 기준)."""
+    return {
+        "F1": metrics["f1_pa"],
+        "Precision": metrics["precision_pa"],
+        "Recall": metrics["recall_pa"],
+        "TP / FP": f"{int(metrics['tp'])} / {int(metrics['fp'])}",
+        "TN / FN": f"{int(metrics['tn'])} / {int(metrics['fn'])}",
+        "Threshold": metrics["threshold"],
+        "Latency": metrics["latency"],
+    }
+
+
+def format_pa_ranking_section(metrics: dict[str, float]) -> dict[str, float]:
+    return {
+        "AUROC": metrics["auroc_pa"],
+        "AUPRC": metrics["auprc_pa"],
+    }
 
 def classification_metrics(
     labels: np.ndarray,
@@ -175,10 +308,24 @@ def evaluate_anomaly_detection(
 
     pa_predictions = point_adjust(labels, predictions)
     pa_metrics = classification_metrics(labels, pa_predictions)
+    pa_counts = confusion_counts(labels, pa_predictions)
+    ranking = pa_ranking_metrics(labels, scores, n_steps=n_threshold_steps)
+
+    labels_arr = labels.astype(int)
+    if len(np.unique(labels_arr)) < 2:
+        auroc = 0.5
+        auprc = 0.0
+    else:
+        auroc = float(roc_auc_score(labels_arr, scores))
+        auprc = float(average_precision_score(labels_arr, scores))
 
     result: dict[str, float] = {
         "threshold": float(threshold),
-        "auc": float(roc_auc_score(labels, scores)),
+        "auc": auroc,
+        "auroc": auroc,
+        "auprc": auprc,
+        "auroc_pa": ranking["auroc_pa"],
+        "auprc_pa": ranking["auprc_pa"],
         "accuracy": metrics["accuracy"],
         "precision": metrics["precision"],
         "recall": metrics["recall"],
@@ -187,6 +334,11 @@ def evaluate_anomaly_detection(
         "precision_pa": pa_metrics["precision"],
         "recall_pa": pa_metrics["recall"],
         "f1_pa": pa_metrics["f1"],
+        "tp": float(pa_counts["tp"]),
+        "tn": float(pa_counts["tn"]),
+        "fp": float(pa_counts["fp"]),
+        "fn": float(pa_counts["fn"]),
+        "latency": detection_latency(labels, pa_predictions),
     }
     if val_f1_pa is not None:
         result["val_f1_pa_at_threshold"] = val_f1_pa
