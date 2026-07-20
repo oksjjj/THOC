@@ -28,7 +28,7 @@ from thoc.data import (
     make_dataset_splits,
     resolve_val_ratio,
 )
-from thoc.logger import save_json, setup_logger
+from thoc.logger import log_banner, log_configurations, save_json, setup_logger
 from thoc.model import THOC
 from thoc.trainer import THOCTrainer, TrainConfig
 
@@ -181,14 +181,14 @@ def run_training(
         val_x, val_y = splits.val_x, splits.val_y
 
     logger.info(
-        "Splits | train: %s | val: %s | test: %s",
+        "train set shape: %s | val: %s | test: %s",
         splits.train_x.shape,
         None if val_x is None else val_x.shape,
         splits.test_x.shape,
     )
     if val_y is not None:
         logger.info(
-            "Split anomaly ratio | val: %.2f%% | test: %.2f%%",
+            "anomaly ratio: val=%.2f%% test=%.2f%%",
             100.0 * val_y.mean(),
             100.0 * splits.test_y.mean(),
         )
@@ -208,7 +208,7 @@ def run_training(
         val_y=val_y,
     )
     logger.info(
-        "Dataloaders | train windows: %d | val windows: %s | test windows: %d",
+        "train windows: %d | val windows: %s | test windows: %d",
         len(train_loader.dataset),
         len(val_loader.dataset) if val_loader else "N/A",
         len(test_loader.dataset),
@@ -261,11 +261,11 @@ def run_training(
             trainer.state.best_val_f1_pa = history.get("best_val_f1_pa", -1.0)
             trainer.state.best_threshold = history.get("best_threshold")
             logger.info(
-                "Restored from history | best_val_f1_pa=%.4f | best_threshold=%s",
+                "restored from history: best_val_f1_pa=%.4f best_threshold=%s",
                 trainer.state.best_val_f1_pa,
                 trainer.state.best_threshold,
             )
-        logger.info("Eval only | checkpoint: %s", checkpoint_path)
+        logger.info("eval only: checkpoint=%s", checkpoint_path)
     else:
         trainer.train()
         checkpoint_path = os.path.join(config.checkpoint_dir, "best.pt")
@@ -289,7 +289,11 @@ def tune_hyperparameters(
             TUNE_GRID["lambda_tss"],
         )
     )
-    logger.info("Hyperparameter tuning | %d combinations | tune_epochs=%d", len(combos), args.tune_epochs)
+    logger.info(
+        "hyperparameter tuning: combinations=%d tune_epochs=%d",
+        len(combos),
+        args.tune_epochs,
+    )
 
     best: dict | None = None
     tune_results: list[dict] = []
@@ -302,10 +306,9 @@ def tune_hyperparameters(
             args.tune_epochs,
             suffix,
         )
+        log_banner(logger, f"Tune {idx}/{len(combos)}")
         logger.info(
-            "=== Tune %d/%d | lr=%g | lambda_orth=%g | lambda_tss=%g ===",
-            idx,
-            len(combos),
+            "lr=%g lambda_orth=%g lambda_tss=%g",
             lr,
             lambda_orth,
             lambda_tss,
@@ -336,7 +339,8 @@ def tune_hyperparameters(
 
     assert best is not None
     logger.info(
-        "Best tune combo | lr=%g | lambda_orth=%g | lambda_tss=%g | val_f1_pa=%.4f | test_f1_pa=%.4f",
+        "best tune combo: lr=%g lambda_orth=%g lambda_tss=%g "
+        "val_f1_pa=%.4f test_f1_pa=%.4f",
         best["lr"],
         best["lambda_orth"],
         best["lambda_tss"],
@@ -349,10 +353,8 @@ def tune_hyperparameters(
     save_json(os.path.join(tune_summary_dir, "tune_results.json"), tune_results)
     save_json(os.path.join(tune_summary_dir, "best_params.json"), best)
 
-    logger.info(
-        "=== Final training with best hyperparameters (%d epochs) ===",
-        args.epochs,
-    )
+    log_banner(logger, "Final training")
+    logger.info("epochs=%d (best hyperparameters)", args.epochs)
     final_exp = build_exp_name(
         args.dataset,
         args.window_size or get_dataset_defaults(args.dataset).window_size,
@@ -387,26 +389,51 @@ def main() -> None:
     )
 
     device = resolve_device(args.device)
+    logger.info("Experiment started")
     logger.info("Experiment: %s", exp_name)
     logger.info("Dataset: %s", args.dataset)
-    logger.info(
-        "Config | window=%d | val_ratio=%.2f | val_split=%s | epochs=%d | device=%s | eval_only=%s",
-        window_size,
-        resolve_val_ratio(args.dataset, args.val_ratio),
-        not args.no_val_split,
-        args.epochs,
-        device,
-        args.eval_only,
-    )
+    logger.info("Using device: %s", device)
+
+    config_dump = {
+        "batch_size": args.batch_size,
+        "checkpoint": args.checkpoint,
+        "checkpoint_dir": args.checkpoint_dir,
+        "data_dir": args.data_dir,
+        "dataset": args.dataset,
+        "device": str(device),
+        "epochs": args.epochs,
+        "eval_batch_size": args.eval_batch_size,
+        "eval_only": args.eval_only,
+        "exp_name": exp_name,
+        "hidden_dim": args.hidden_dim,
+        "infer_threshold_policy": args.infer_threshold_policy,
+        "l2_reg": args.l2_reg,
+        "lambda_orth": args.lambda_orth,
+        "lambda_tss": args.lambda_tss,
+        "log_dir": args.log_dir,
+        "log_freq": args.log_freq,
+        "lr": args.lr,
+        "output_dir": args.output_dir,
+        "scaler": args.scaler,
+        "seed": args.seed,
+        "stride": args.stride,
+        "test_stride": args.test_stride,
+        "tune": args.tune,
+        "tune_epochs": args.tune_epochs,
+        "val_ratio": resolve_val_ratio(args.dataset, args.val_ratio),
+        "val_split": not args.no_val_split,
+        "window_size": window_size,
+    }
+    log_configurations(logger, dict(sorted(config_dump.items())))
 
     if args.tune:
-        results = tune_hyperparameters(args, logger, device)
+        tune_hyperparameters(args, logger, device)
     elif args.eval_only and not args.exp_name and not args.checkpoint:
         raise SystemExit(
             "eval_only 모드에서는 --exp_name 또는 --checkpoint 를 지정해야 합니다."
         )
     else:
-        results = run_training(
+        run_training(
             args,
             logger,
             device,
@@ -417,12 +444,7 @@ def main() -> None:
             exp_name=exp_name,
         )
 
-    logger.info("=== Final Evaluation ===")
-    for key, value in results.items():
-        if isinstance(value, float):
-            logger.info("%s: %.4f", key, value)
-        else:
-            logger.info("%s: %s", key, value)
+    logger.info("Experiment finished")
 
 
 if __name__ == "__main__":

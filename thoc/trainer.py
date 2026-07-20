@@ -20,7 +20,7 @@ import torch
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 
-from thoc.logger import save_json
+from thoc.logger import log_banner, log_evaluation_summary, save_json
 from thoc.metrics import ThresholdMethod, evaluate_anomaly_detection, select_threshold
 from thoc.model import THOC
 
@@ -102,7 +102,7 @@ class THOCTrainer:
         없으면 train loss 기준으로 저장 (레거시).
         """
         self.logger.info(
-            "Training started | epochs=%d | batches=%d | val=%s",
+            "Training started: epochs=%d batches=%d val=%s",
             self.config.epochs,
             len(self.train_loader),
             "yes" if self.val_loader is not None else "no",
@@ -116,8 +116,8 @@ class THOCTrainer:
                 stats.val_f1_pa = val_metrics["f1_pa"]
                 stats.val_threshold = val_metrics["threshold"]
                 self.logger.info(
-                    "Epoch %d/%d | loss=%.4f | L_THOC=%.4f | L_orth=%.4f | L_TSS=%.4f"
-                    " | val_f1_pa=%.4f | val_threshold=%.4f",
+                    "epoch=%d/%d loss=%.4f L_THOC=%.4f L_orth=%.4f L_TSS=%.4f "
+                    "val_f1_pa=%.4f val_threshold=%.4f",
                     epoch,
                     self.config.epochs,
                     stats.avg_loss,
@@ -133,13 +133,13 @@ class THOCTrainer:
                     checkpoint_path = os.path.join(self.config.checkpoint_dir, "best.pt")
                     self.save(checkpoint_path)
                     self.logger.info(
-                        "Saved best checkpoint (val_f1_pa=%.4f): %s",
-                        val_metrics["f1_pa"],
+                        "Best model saved to %s (val_f1_pa=%.4f)",
                         checkpoint_path,
+                        val_metrics["f1_pa"],
                     )
             else:
                 self.logger.info(
-                    "Epoch %d/%d | loss=%.4f | L_THOC=%.4f | L_orth=%.4f | L_TSS=%.4f",
+                    "epoch=%d/%d loss=%.4f L_THOC=%.4f L_orth=%.4f L_TSS=%.4f",
                     epoch,
                     self.config.epochs,
                     stats.avg_loss,
@@ -151,7 +151,7 @@ class THOCTrainer:
                     self.state.best_loss = stats.avg_loss
                     checkpoint_path = os.path.join(self.config.checkpoint_dir, "best.pt")
                     self.save(checkpoint_path)
-                    self.logger.info("Saved best checkpoint: %s", checkpoint_path)
+                    self.logger.info("Best model saved to %s", checkpoint_path)
 
             self.state.history.append(stats)
 
@@ -266,9 +266,10 @@ class THOCTrainer:
           - validation (기본): 학습 중 validation F1-PA 최적 threshold → test 전체 적용
           - test_best_f1_pa: test 라벨로 threshold 재탐색 (참고·벤치마크 비교용)
 
-        test_best_f1_pa 참고 지표는 results.json 에 저장.
+        test_best_f1_pa (참고 지표) 는 results.json 에 저장.
         """
         self.model.eval()
+        log_banner(self.logger, "testing", char="-")
 
         labels = self.test_loader.dataset.y
         scores = self._compute_point_scores(
@@ -333,36 +334,76 @@ class THOCTrainer:
         )
         results["threshold_source"] = threshold_source
 
-        for key, value in results.items():
-            if isinstance(value, float):
-                self.logger.info("  %s: %.4f", key, value)
-            else:
-                self.logger.info("  %s: %s", key, value)
-
         if val_threshold is not None and threshold_source == "validation":
             n_pred = int((scores > val_threshold).sum())
             if n_pred == 0 and labels.sum() > 0:
                 self.logger.warning(
-                    "Validation threshold %.4f flags 0/%d test points (test score max=%.4f).",
+                    "Validation threshold %.4f flags 0/%d test points "
+                    "(test score max=%.4f).",
                     val_threshold,
                     len(scores),
                     float(scores.max()),
                 )
 
-        if (
-            val_threshold is not None
-            and threshold_source != "validation"
-            and threshold_source != "manual"
-        ):
-            self.logger.info(
-                "  (ref) test_best_f1_pa threshold → f1_pa=%.4f",
-                extra["test_best_f1_pa_metrics"]["f1_pa"],  # type: ignore[index]
-            )
-        elif threshold_source == "validation":
-            self.logger.info(
-                "  (ref) test_best_f1_pa on test → f1_pa=%.4f",
-                extra["test_best_f1_pa_metrics"]["f1_pa"],  # type: ignore[index]
-            )
+        primary_label = threshold_source
+        if threshold_source == "validation":
+            primary_note = "primary metric (threshold from validation)"
+        elif threshold_source == "manual":
+            primary_note = "manual threshold"
+        else:
+            primary_note = "oracle upper bound (threshold fit on test labels)"
+
+        primary_metrics = {
+            "F1-PA": results["f1_pa"],
+            "Precision-PA": results["precision_pa"],
+            "Recall-PA": results["recall_pa"],
+            "F1": results["f1"],
+            "Precision": results["precision"],
+            "Recall": results["recall"],
+            "AUC": results["auc"],
+            "Threshold": results["threshold"],
+            "Source": threshold_source,
+        }
+
+        reference_metrics = None
+        reference_label = None
+        reference_note = None
+        if threshold_source == "validation":
+            reference_label = "test_best_f1_pa"
+            reference_note = "oracle upper bound (threshold fit on test labels)"
+            reference_metrics = {
+                "F1-PA": test_tuned["f1_pa"],
+                "Precision-PA": test_tuned["precision_pa"],
+                "Recall-PA": test_tuned["recall_pa"],
+                "F1": test_tuned["f1"],
+                "Precision": test_tuned["precision"],
+                "Recall": test_tuned["recall"],
+                "Threshold": test_threshold,
+            }
+
+        training_info: dict[str, float | str] = {
+            "best_val_f1_pa": self.state.best_val_f1_pa,
+            "best_threshold": (
+                f"{self.state.best_threshold:.4f}"
+                if self.state.best_threshold is not None
+                else "N/A"
+            ),
+            "lr": self.config.lr,
+            "lambda_orth": self.config.lambda_orth,
+            "lambda_tss": self.config.lambda_tss,
+            "checkpoint_dir": self.config.checkpoint_dir,
+        }
+
+        log_evaluation_summary(
+            self.logger,
+            primary=primary_metrics,
+            primary_label=primary_label,
+            primary_note=primary_note,
+            reference=reference_metrics,
+            reference_label=reference_label,
+            reference_note=reference_note,
+            training=training_info,
+        )
 
         results_path = os.path.join(self.config.output_dir, "results.json")
         save_json(results_path, {**results, **extra})
