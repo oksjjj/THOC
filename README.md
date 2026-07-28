@@ -2,6 +2,8 @@
 
 NeurIPS 2020 논문 [*Timeseries Anomaly Detection using Temporal Hierarchical One-Class Network*](https://proceedings.neurips.cc/paper/2020/file/97e401a02082021fd24957f852e0e475-Paper.pdf)을 기반으로 한 PyTorch 구현입니다.
 
+출력 디렉터리 레이아웃은 OmniAnomaly와 동일합니다: `{model|result|log}/{dataset}/{exp}/`.
+
 ## 구조
 
 - **Dilated RNN**: 다중 스케일 시간 특징 추출
@@ -44,57 +46,49 @@ python main.py --dataset SMAP --val_ratio 0.15 --tune --tune_epochs 5 --epochs 3
 ### SMD (Server Machine Dataset)
 
 ```bash
+# 전체 concat
 python main.py --dataset SMD --epochs 30
+
+# 머신별 (OmniAnomaly 와 동일)
+python main.py --dataset machine-1-1 --epochs 30
+python main.py --all_smd_machines --epochs 30
 ```
 
-`data/SMD/` 아래 npy 파일 사용:
-- `SMD_train.npy`
-- `SMD_test.npy`
-- `SMD_test_label.npy`
+## 로깅 / 산출물
 
-## 로깅
-
-학습 시 자동으로 다음 파일이 생성됩니다.
+학습 시 자동으로 다음이 생성됩니다 (OmniAnomaly 동일 중첩).
 
 | 경로 | 내용 |
 |------|------|
-| `log/{exp_name}.log` | 콘솔 + 파일 로그 |
-| `result/{exp_name}/train_history.json` | epoch별 손실 기록 |
-| `result/{exp_name}/results.json` | 평가 지표 (F1, F1-PA, AUC 등) |
-| `result/{exp_name}/roc_pr_*.png` | PA ROC/PR 곡선 |
-| `model/{exp_name}/best.pt` | 최적 모델 체크포인트 |
-
-로그 관련 옵션:
+| `log/{dataset}/{exp}/*.log` | 콘솔 + 파일 로그 |
+| `result/{dataset}/{exp}/train_history.json` | epoch별 손실 기록 |
+| `result/{dataset}/{exp}/results.json` | 평가 지표 |
+| `result/{dataset}/{exp}/roc_pr_*.png` | PA ROC/PR 곡선 |
+| `model/{dataset}/{exp}/best.pt` | 최적 모델 체크포인트 |
+| `viz_gt/{dataset}/` · `viz_pred/{dataset}/{exp}/` | GT / pred 시각화 |
 
 ```bash
 python main.py --dataset SMAP --log_level DEBUG --log_freq 5 --exp_name my_smap_run
+# → model/SMAP/my_smap_run/ , result/SMAP/my_smap_run/ , log/SMAP/my_smap_run/
 ```
 
 ## 데이터 준비
 
-### 포함된 데이터
-
 ```
 data/
-├── NeurIPS-TS/     # CSV (단변량/다변량)
-├── SMAP/           # SMAP_train.npy, SMAP_test.npy, SMAP_test_label.npy
-└── SMD/            # SMD_train.npy, SMD_test.npy, SMD_test_label.npy
+├── NeurIPS-TS/
+├── SMAP/
+├── SMD/
+└── raw/            # 선택 (원본)
 ```
 
-### 원본 데이터 전처리
-
-원본 txt/npy 파일이 있는 경우:
+자세한 내용은 `data/README.md` 참고.
 
 ```bash
-# SMD
 python scripts/preprocess_data.py --dataset SMD \
-  --raw_dir /path/to/ServerMachineDataset \
-  --output_dir data/SMD
-
-# SMAP
+  --raw_dir /path/to/ServerMachineDataset --output_dir data/SMD
 python scripts/preprocess_data.py --dataset SMAP \
-  --raw_dir /path/to/raw_smap \
-  --output_dir data/SMAP
+  --raw_dir /path/to/raw_smap --output_dir data/SMAP
 ```
 
 ## 주요 하이퍼파라미터
@@ -108,15 +102,16 @@ python scripts/preprocess_data.py --dataset SMAP \
 | `--lr` | 1e-3 | 학습률 |
 | `--lambda_orth` | 1.0 | 직교 손실 가중치 |
 | `--lambda_tss` | 1.0 | TSS 손실 가중치 |
-| `--log_dir` | ./log | 로그 디렉터리 (OmniAnomaly 동일) |
-| `--result_dir` | ./result | 결과 JSON/곡선 (`--output_dir` 별칭) |
-| `--save_dir` | ./model | 체크포인트 (`--checkpoint_dir` 별칭) |
+| `--log_dir` | log | 로그 루트 |
+| `--result_dir` | result | 결과 루트 (`--output_dir` 별칭) |
+| `--save_dir` | model | 체크포인트 루트 (`--checkpoint_dir` 별칭) |
+| `--exp_name` | 자동 | `{dataset}` 아래 실험 폴더명 |
 
 ## 평가 지표
 
 - **F1 / Precision / Recall**: Youden's J statistic으로 threshold 선택
 - **F1-PA**: Point-Adjust 평가 (SMAP/SMD 벤치마크 표준)
-- **AUC**: ROC-AUC
+- **AUC**: ROC-AUC / AUPRC (PA)
 
 ## 프로젝트 구조
 
@@ -124,35 +119,21 @@ python scripts/preprocess_data.py --dataset SMAP \
 THOC/
 ├── main.py
 ├── requirements.txt
+├── thoc/                 # 모델 · 학습 · 평가 패키지
 ├── scripts/
 │   ├── preprocess_data.py
 │   └── viz_gt_anomalies.py
-├── thoc/
-│   ├── model.py
-│   ├── data.py
-│   ├── metrics.py
-│   ├── logger.py
-│   └── trainer.py
 ├── data/
 │   ├── NeurIPS-TS/
 │   ├── SMAP/
-│   └── SMD/
-├── log/
-├── result/
-└── model/
+│   ├── SMD/
+│   └── raw/
+├── model/ · result/ · log/
+└── viz_gt/ · viz_pred/
 ```
 
 ## Git
 
 Remote: [github.com/oksjjj/THOC](https://github.com/oksjjj/THOC)
 
-`data/`, `model/`, `log/`, `result/`, `paper/`는 `.gitignore`에 포함됩니다.
-
-```bash
-git init
-git remote add origin https://github.com/oksjjj/THOC.git
-git add .
-git commit -m "Initial commit: THOC PyTorch implementation"
-git branch -M main
-git push -u origin main
-```
+`data/`, `model/`, `log/`, `result/`, `viz_gt/`, `viz_pred/`는 `.gitignore`에 포함됩니다.

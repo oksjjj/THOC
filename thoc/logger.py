@@ -19,11 +19,23 @@ def setup_logger(
     log_dir: str,
     exp_name: str | None = None,
     level: int = logging.INFO,
+    dataset: str | None = None,
+    mode: str = "train",
 ) -> logging.Logger:
-    """Create a logger that writes to console and a log file."""
+    """Create a logger that writes to console and a log file.
+
+    ``log_dir`` should already be the experiment folder
+    (``log/{dataset}/{exp}/``, OmniAnomaly layout). The file name follows
+    OmniAnomaly: ``{dataset}_{timestamp}_{mode}.log``.
+    """
     os.makedirs(log_dir, exist_ok=True)
-    exp_name = exp_name or datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_path = os.path.join(log_dir, f"{exp_name}.log")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    mode = mode if mode in ("train", "eval") else "train"
+    if dataset:
+        log_filename = f"{dataset}_{timestamp}_{mode}.log"
+    else:
+        log_filename = f"{exp_name or timestamp}_{mode}.log"
+    log_path = os.path.join(log_dir, log_filename)
 
     logger = logging.getLogger(name)
     logger.setLevel(level)

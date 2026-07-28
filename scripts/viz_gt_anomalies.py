@@ -17,7 +17,7 @@ Modes:
 Examples:
   python scripts/viz_gt_anomalies.py --dataset SMD --gt_only
   python scripts/viz_gt_anomalies.py --dataset machine-1-1 --gt_only
-  python scripts/viz_gt_anomalies.py --dataset machine-1-1 --exp_name machine-1-1_ws100_...
+  python scripts/viz_gt_anomalies.py --dataset machine-1-1 --exp_name ws100_ep30_20260728_101000
   python scripts/viz_gt_anomalies.py --dataset SMAP --gt_only
 """
 
@@ -108,16 +108,17 @@ def parse_args() -> argparse.Namespace:
         "--result_dir",
         "--output_dir",
         type=str,
-        default="./result",
+        default="result",
         dest="result_dir",
-        help="Experiment result root that contains {exp_name}/ (OmniAnomaly result_dir)",
+        help="Experiment result root → {result_dir}/{dataset}/{exp}/ "
+        "(OmniAnomaly layout)",
     )
     parser.add_argument(
         "--exp_name",
         type=str,
         default=None,
-        help="Experiment name under --result_dir (required unless --gt_only "
-        "or --run_dir is set)",
+        help="Experiment name under {result_dir}/{dataset}/ "
+        "(required unless --gt_only or --run_dir is set)",
     )
     parser.add_argument(
         "--run_dir",
@@ -164,7 +165,7 @@ def _resolve_run_dir(args: argparse.Namespace) -> str:
         return args.run_dir
     if args.exp_name is None:
         raise SystemExit("--exp_name 또는 --run_dir 이 필요합니다 (pred 모드).")
-    return os.path.join(args.result_dir, args.exp_name)
+    return os.path.join(args.result_dir, args.dataset, args.exp_name)
 
 
 def _load_pred(

@@ -32,6 +32,7 @@ from thoc.data import (
 )
 from thoc.logger import log_banner, log_configurations, save_json, setup_logger
 from thoc.model import THOC
+from thoc.paths import resolve_output_dirs
 from thoc.trainer import THOCTrainer, TrainConfig
 
 
@@ -60,20 +61,20 @@ def set_seed(seed: int) -> None:
 def resolve_device(device_arg: str) -> torch.device:
     if device_arg != "auto":
         return torch.device(device_arg)
-    if torch.cuda.is_available():
-        return torch.device("cuda")
     if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
         return torch.device("mps")
+    if torch.cuda.is_available():
+        return torch.device("cuda")
     return torch.device("cpu")
 
 
 def build_exp_name(
-    dataset: str,
     window_size: int,
     epochs: int,
     suffix: str = "",
 ) -> str:
-    parts = [dataset.lower(), f"ws{window_size}", f"ep{epochs}"]
+    """Experiment folder name (dataset is a parent dir, OmniAnomaly style)."""
+    parts = [f"ws{window_size}", f"ep{epochs}"]
     if suffix:
         parts.append(suffix)
     parts.append(datetime.now().strftime("%Y%m%d_%H%M%S"))
@@ -119,25 +120,30 @@ def parse_args() -> argparse.Namespace:
         "--save_dir",
         "--checkpoint_dir",
         type=str,
-        default="./model",
+        default="model",
         dest="save_dir",
-        help="체크포인트 루트 (OmniAnomaly save_dir; 기본 ./model)",
+        help="체크포인트 루트 → {save_dir}/{dataset}/{exp}/ (기본: model)",
     )
     parser.add_argument(
         "--log_dir",
         type=str,
-        default="./log",
-        help="로그 루트 (OmniAnomaly log_dir; 기본 ./log)",
+        default="log",
+        help="로그 루트 → {log_dir}/{dataset}/{exp}/ (기본: log)",
     )
     parser.add_argument(
         "--result_dir",
         "--output_dir",
         type=str,
-        default="./result",
+        default="result",
         dest="result_dir",
-        help="결과/메트릭 루트 (OmniAnomaly result_dir; 기본 ./result)",
+        help="결과 루트 → {result_dir}/{dataset}/{exp}/ (기본: result)",
     )
-    parser.add_argument("--exp_name", type=str, default=None)
+    parser.add_argument(
+        "--exp_name",
+        type=str,
+        default=None,
+        help="실험 폴더명 (기본: ws{window}_ep{epochs}_{timestamp})",
+    )
     parser.add_argument("--log_freq", type=int, default=10)
     parser.add_argument("--log_level", type=str, default="INFO", choices=["DEBUG", "INFO", "WARNING"])
     parser.add_argument("--device", type=str, default="auto")
@@ -157,7 +163,7 @@ def parse_args() -> argparse.Namespace:
         "--checkpoint",
         type=str,
         default=None,
-        help="eval_only 시 사용할 .pt 경로 (미지정 시 model/{exp_name}/best.pt)",
+        help="eval_only 시 사용할 .pt 경로 (미지정 시 model/{dataset}/{exp}/best.pt)",
     )
     parser.add_argument(
         "--tune",
@@ -202,8 +208,13 @@ def run_training(
     stride = args.stride or defaults.stride
     test_stride = args.test_stride if args.test_stride is not None else defaults.test_stride
 
-    exp_save_dir = os.path.join(args.save_dir, exp_name)
-    exp_result_dir = os.path.join(args.result_dir, exp_name)
+    exp_save_dir, exp_result_dir, exp_log_dir = resolve_output_dirs(
+        args.dataset,
+        exp_name,
+        save_root=args.save_dir,
+        result_root=args.result_dir,
+        log_root=args.log_dir,
+    )
 
     train_x, train_y, test_x, test_y = load_dataset(args.dataset, data_dir)
     val_ratio = resolve_val_ratio(args.dataset, args.val_ratio)
@@ -270,7 +281,7 @@ def run_training(
         lambda_tss=lambda_tss,
         log_freq=args.log_freq,
         checkpoint_dir=exp_save_dir,
-        log_dir=args.log_dir,
+        log_dir=exp_log_dir,
         exp_name=exp_name,
         output_dir=exp_result_dir,
         dataset=args.dataset,
@@ -341,7 +352,6 @@ def tune_hyperparameters(
     for idx, (lr, lambda_orth, lambda_tss) in enumerate(combos, start=1):
         suffix = f"lr{lr:g}_orth{lambda_orth:g}_tss{lambda_tss:g}"
         exp_name = build_exp_name(
-            args.dataset,
             args.window_size or get_dataset_defaults(args.dataset).window_size,
             args.tune_epochs,
             suffix,
@@ -388,7 +398,9 @@ def tune_hyperparameters(
         best["test_f1_pa"],
     )
 
-    tune_summary_dir = os.path.join(args.result_dir, f"tune_{args.dataset.lower()}")
+    tune_summary_dir = os.path.join(
+        args.result_dir, args.dataset, f"tune_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    )
     os.makedirs(tune_summary_dir, exist_ok=True)
     save_json(os.path.join(tune_summary_dir, "tune_results.json"), tune_results)
     save_json(os.path.join(tune_summary_dir, "best_params.json"), best)
@@ -396,7 +408,6 @@ def tune_hyperparameters(
     log_banner(logger, "Final training")
     logger.info("epochs=%d (best hyperparameters)", args.epochs)
     final_exp = build_exp_name(
-        args.dataset,
         args.window_size or get_dataset_defaults(args.dataset).window_size,
         args.epochs,
         f"best_lr{best['lr']:g}_orth{best['lambda_orth']:g}_tss{best['lambda_tss']:g}",
@@ -420,12 +431,25 @@ def run_single_experiment(args: argparse.Namespace, device: torch.device | None 
     defaults = get_dataset_defaults(args.dataset)
     window_size = args.window_size or defaults.window_size
 
-    exp_name = args.exp_name or build_exp_name(args.dataset, window_size, args.epochs)
+    if args.tune:
+        exp_name = args.exp_name or f"tune_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    else:
+        exp_name = args.exp_name or build_exp_name(window_size, args.epochs)
+
+    _save_dir, _result_dir, log_dir = resolve_output_dirs(
+        args.dataset,
+        exp_name,
+        save_root=args.save_dir,
+        result_root=args.result_dir,
+        log_root=args.log_dir,
+    )
     logger = setup_logger(
         name=f"thoc.{args.dataset}",
-        log_dir=args.log_dir,
+        log_dir=log_dir,
         exp_name=exp_name,
         level=getattr(logging, args.log_level),
+        dataset=args.dataset,
+        mode="eval" if args.eval_only else "train",
     )
 
     device = device or resolve_device(args.device)
@@ -433,6 +457,12 @@ def run_single_experiment(args: argparse.Namespace, device: torch.device | None 
     logger.info("Experiment: %s", exp_name)
     logger.info("Dataset: %s", args.dataset)
     logger.info("Using device: %s", device)
+    logger.info(
+        "Paths: save_dir=%s result_dir=%s log_dir=%s",
+        os.path.join(args.save_dir, args.dataset, exp_name),
+        os.path.join(args.result_dir, args.dataset, exp_name),
+        log_dir,
+    )
 
     config_dump = {
         "batch_size": args.batch_size,
@@ -505,11 +535,14 @@ def main() -> None:
             raise SystemExit("--all_smd_machines 와 --tune 은 함께 쓸 수 없습니다.")
 
         summary_name = f"smd_all_machines_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        summary_log_dir = os.path.join(args.log_dir, "SMD", summary_name)
         summary_logger = setup_logger(
             name="thoc.smd_all",
-            log_dir=args.log_dir,
+            log_dir=summary_log_dir,
             exp_name=summary_name,
             level=getattr(logging, args.log_level),
+            dataset="SMD",
+            mode="train",
         )
         summary_logger.info(
             "Training all SMD machines | count=%d | data_dir=%s",
@@ -547,7 +580,9 @@ def main() -> None:
                 }
             summary_rows.append(row)
 
-        summary_path = os.path.join(args.result_dir, summary_name, "smd_machine_summary.json")
+        summary_path = os.path.join(
+            args.result_dir, "SMD", summary_name, "smd_machine_summary.json"
+        )
         save_json(summary_path, summary_rows)
         summary_logger.info("SMD machine summary saved: %s", summary_path)
         for row in summary_rows:
