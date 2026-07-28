@@ -58,10 +58,11 @@ python main.py --dataset SMD --epochs 30
 
 | 경로 | 내용 |
 |------|------|
-| `logs/{exp_name}.log` | 콘솔 + 파일 로그 |
-| `outputs/{exp_name}/train_history.json` | epoch별 손실 기록 |
-| `outputs/{exp_name}/results.json` | 평가 지표 (F1, F1-PA, AUC 등) |
-| `checkpoints/{exp_name}/best.pt` | 최적 모델 체크포인트 |
+| `log/{exp_name}.log` | 콘솔 + 파일 로그 |
+| `result/{exp_name}/train_history.json` | epoch별 손실 기록 |
+| `result/{exp_name}/results.json` | 평가 지표 (F1, F1-PA, AUC 등) |
+| `result/{exp_name}/roc_pr_*.png` | PA ROC/PR 곡선 |
+| `model/{exp_name}/best.pt` | 최적 모델 체크포인트 |
 
 로그 관련 옵션:
 
@@ -107,8 +108,9 @@ python scripts/preprocess_data.py --dataset SMAP \
 | `--lr` | 1e-3 | 학습률 |
 | `--lambda_orth` | 1.0 | 직교 손실 가중치 |
 | `--lambda_tss` | 1.0 | TSS 손실 가중치 |
-| `--log_dir` | ./logs | 로그 디렉터리 |
-| `--output_dir` | ./outputs | 결과 JSON 저장 경로 |
+| `--log_dir` | ./log | 로그 디렉터리 (OmniAnomaly 동일) |
+| `--result_dir` | ./result | 결과 JSON/곡선 (`--output_dir` 별칭) |
+| `--save_dir` | ./model | 체크포인트 (`--checkpoint_dir` 별칭) |
 
 ## 평가 지표
 
@@ -119,11 +121,12 @@ python scripts/preprocess_data.py --dataset SMAP \
 ## 프로젝트 구조
 
 ```
-THOC_gpt/
+THOC/
 ├── main.py
 ├── requirements.txt
 ├── scripts/
-│   └── preprocess_data.py
+│   ├── preprocess_data.py
+│   └── viz_gt_anomalies.py
 ├── thoc/
 │   ├── model.py
 │   ├── data.py
@@ -134,16 +137,16 @@ THOC_gpt/
 │   ├── NeurIPS-TS/
 │   ├── SMAP/
 │   └── SMD/
-├── logs/
-├── outputs/
-└── checkpoints/
+├── log/
+├── result/
+└── model/
 ```
 
 ## Git
 
 Remote: [github.com/oksjjj/THOC](https://github.com/oksjjj/THOC)
 
-`data/`, `checkpoints/`, `logs/`, `outputs/`, `paper/`는 `.gitignore`에 포함됩니다.
+`data/`, `model/`, `log/`, `result/`, `paper/`는 `.gitignore`에 포함됩니다.
 
 ```bash
 git init

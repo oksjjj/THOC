@@ -12,8 +12,9 @@ __pycache__/
 Thumbs.db
 
 # Training artifacts
-checkpoints/
-outputs/
+model/
+result/
+log/
 *.pt
 *.pth
 *.ckpt
@@ -30,7 +31,12 @@ paper/
 .env.*
 *.pem
 
-logs/
-results/
+# Visualization outputs (OmniAnomaly 동일)
 viz_gt/
 viz_pred/
+
+# Legacy dir names (이전 기본값)
+checkpoints/
+outputs/
+logs/
+results/

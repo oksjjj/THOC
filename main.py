@@ -115,9 +115,28 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lambda_tss", type=float, default=1.0)
     parser.add_argument("--scaler", type=str, default="std", choices=["std", "minmax"])
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--checkpoint_dir", type=str, default="./checkpoints")
-    parser.add_argument("--log_dir", type=str, default="./logs")
-    parser.add_argument("--output_dir", type=str, default="./outputs")
+    parser.add_argument(
+        "--save_dir",
+        "--checkpoint_dir",
+        type=str,
+        default="./model",
+        dest="save_dir",
+        help="체크포인트 루트 (OmniAnomaly save_dir; 기본 ./model)",
+    )
+    parser.add_argument(
+        "--log_dir",
+        type=str,
+        default="./log",
+        help="로그 루트 (OmniAnomaly log_dir; 기본 ./log)",
+    )
+    parser.add_argument(
+        "--result_dir",
+        "--output_dir",
+        type=str,
+        default="./result",
+        dest="result_dir",
+        help="결과/메트릭 루트 (OmniAnomaly result_dir; 기본 ./result)",
+    )
     parser.add_argument("--exp_name", type=str, default=None)
     parser.add_argument("--log_freq", type=int, default=10)
     parser.add_argument("--log_level", type=str, default="INFO", choices=["DEBUG", "INFO", "WARNING"])
@@ -138,7 +157,7 @@ def parse_args() -> argparse.Namespace:
         "--checkpoint",
         type=str,
         default=None,
-        help="eval_only 시 사용할 .pt 경로 (미지정 시 checkpoints/{exp_name}/best.pt)",
+        help="eval_only 시 사용할 .pt 경로 (미지정 시 model/{exp_name}/best.pt)",
     )
     parser.add_argument(
         "--tune",
@@ -183,8 +202,8 @@ def run_training(
     stride = args.stride or defaults.stride
     test_stride = args.test_stride if args.test_stride is not None else defaults.test_stride
 
-    exp_checkpoint_dir = os.path.join(args.checkpoint_dir, exp_name)
-    exp_output_dir = os.path.join(args.output_dir, exp_name)
+    exp_save_dir = os.path.join(args.save_dir, exp_name)
+    exp_result_dir = os.path.join(args.result_dir, exp_name)
 
     train_x, train_y, test_x, test_y = load_dataset(args.dataset, data_dir)
     val_ratio = resolve_val_ratio(args.dataset, args.val_ratio)
@@ -250,10 +269,10 @@ def run_training(
         lambda_orth=lambda_orth,
         lambda_tss=lambda_tss,
         log_freq=args.log_freq,
-        checkpoint_dir=exp_checkpoint_dir,
+        checkpoint_dir=exp_save_dir,
         log_dir=args.log_dir,
         exp_name=exp_name,
-        output_dir=exp_output_dir,
+        output_dir=exp_result_dir,
         dataset=args.dataset,
         infer_threshold_policy=args.infer_threshold_policy,  # type: ignore[arg-type]
     )
@@ -275,7 +294,7 @@ def run_training(
             raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
         trainer.load(checkpoint_path)
         # train_history.json 에 저장된 validation 메타 복원 (infer 참고 지표용)
-        history_path = os.path.join(exp_output_dir, "train_history.json")
+        history_path = os.path.join(exp_result_dir, "train_history.json")
         if os.path.isfile(history_path):
             with open(history_path, encoding="utf-8") as file:
                 history = json.load(file)
@@ -369,7 +388,7 @@ def tune_hyperparameters(
         best["test_f1_pa"],
     )
 
-    tune_summary_dir = os.path.join(args.output_dir, f"tune_{args.dataset.lower()}")
+    tune_summary_dir = os.path.join(args.result_dir, f"tune_{args.dataset.lower()}")
     os.makedirs(tune_summary_dir, exist_ok=True)
     save_json(os.path.join(tune_summary_dir, "tune_results.json"), tune_results)
     save_json(os.path.join(tune_summary_dir, "best_params.json"), best)
@@ -418,7 +437,7 @@ def run_single_experiment(args: argparse.Namespace, device: torch.device | None 
     config_dump = {
         "batch_size": args.batch_size,
         "checkpoint": args.checkpoint,
-        "checkpoint_dir": args.checkpoint_dir,
+        "save_dir": args.save_dir,
         "data_dir": args.data_dir or defaults.data_dir,
         "dataset": args.dataset,
         "device": str(device),
@@ -434,7 +453,7 @@ def run_single_experiment(args: argparse.Namespace, device: torch.device | None 
         "log_dir": args.log_dir,
         "log_freq": args.log_freq,
         "lr": args.lr,
-        "output_dir": args.output_dir,
+        "result_dir": args.result_dir,
         "scaler": args.scaler,
         "seed": args.seed,
         "stride": args.stride,
@@ -528,7 +547,7 @@ def main() -> None:
                 }
             summary_rows.append(row)
 
-        summary_path = os.path.join(args.output_dir, summary_name, "smd_machine_summary.json")
+        summary_path = os.path.join(args.result_dir, summary_name, "smd_machine_summary.json")
         save_json(summary_path, summary_rows)
         summary_logger.info("SMD machine summary saved: %s", summary_path)
         for row in summary_rows:

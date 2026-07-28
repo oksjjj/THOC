@@ -42,10 +42,10 @@ class TrainConfig:
     lambda_orth: float = 1.0     # 식 (13) λ_orth
     lambda_tss: float = 1.0      # 식 (13) λ_TSS
     log_freq: int = 10
-    checkpoint_dir: str = "./checkpoints"
-    log_dir: str = "./logs"
+    checkpoint_dir: str = "./model"   # OmniAnomaly save_dir
+    log_dir: str = "./log"
     exp_name: str = "thoc"
-    output_dir: str = "./outputs"
+    output_dir: str = "./result"      # OmniAnomaly result_dir
     dataset: str | None = None
     threshold_method: ThresholdMethod = "best_f1_pa"
     n_threshold_steps: int = 500
