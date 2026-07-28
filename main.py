@@ -24,6 +24,8 @@ import torch
 from thoc.data import (
     build_dataloaders,
     get_dataset_defaults,
+    is_smd_machine,
+    list_smd_machines,
     load_dataset,
     make_dataset_splits,
     resolve_val_ratio,
@@ -31,6 +33,18 @@ from thoc.data import (
 from thoc.logger import log_banner, log_configurations, save_json, setup_logger
 from thoc.model import THOC
 from thoc.trainer import THOCTrainer, TrainConfig
+
+
+KNOWN_DATASETS = ("NeurIPS-TS-UNI", "NeurIPS-TS-MUL", "SMAP", "SMD")
+
+
+def parse_dataset_name(value: str) -> str:
+    if value in KNOWN_DATASETS or is_smd_machine(value):
+        return value
+    raise argparse.ArgumentTypeError(
+        f"Unknown dataset '{value}'. "
+        f"Choose from {list(KNOWN_DATASETS)} or machine-{{g}}-{{id}} (e.g. machine-1-1)"
+    )
 
 
 def set_seed(seed: int) -> None:
@@ -72,9 +86,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--dataset",
-        type=str,
+        type=parse_dataset_name,
         default="NeurIPS-TS-MUL",
-        choices=["NeurIPS-TS-UNI", "NeurIPS-TS-MUL", "SMAP", "SMD"],
+        help="NeurIPS-TS-UNI|MUL, SMAP, SMD(전체 concat), 또는 machine-1-1 등 SMD entity",
     )
     parser.add_argument("--data_dir", type=str, default=None)
     parser.add_argument("--window_size", type=int, default=None)
@@ -136,6 +150,12 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=15,
         help="--tune 시 각 조합당 학습 epoch (기본 15)",
+    )
+    parser.add_argument(
+        "--all_smd_machines",
+        action="store_true",
+        help="data/SMD 의 모든 machine-* 에 대해 순차 학습·평가 "
+        "(OmniAnomaly 머신별 실험; --dataset 은 무시되고 machine id 사용)",
     )
     return parser.parse_args()
 
@@ -234,6 +254,7 @@ def run_training(
         log_dir=args.log_dir,
         exp_name=exp_name,
         output_dir=exp_output_dir,
+        dataset=args.dataset,
         infer_threshold_policy=args.infer_threshold_policy,  # type: ignore[arg-type]
     )
 
@@ -373,8 +394,8 @@ def tune_hyperparameters(
     )
 
 
-def main() -> None:
-    args = parse_args()
+def run_single_experiment(args: argparse.Namespace, device: torch.device | None = None) -> dict[str, float] | None:
+    """단일 dataset/machine 에 대한 학습·평가 (또는 tune)."""
     set_seed(args.seed)
 
     defaults = get_dataset_defaults(args.dataset)
@@ -382,13 +403,13 @@ def main() -> None:
 
     exp_name = args.exp_name or build_exp_name(args.dataset, window_size, args.epochs)
     logger = setup_logger(
-        name="thoc",
+        name=f"thoc.{args.dataset}",
         log_dir=args.log_dir,
         exp_name=exp_name,
         level=getattr(logging, args.log_level),
     )
 
-    device = resolve_device(args.device)
+    device = device or resolve_device(args.device)
     logger.info("Experiment started")
     logger.info("Experiment: %s", exp_name)
     logger.info("Dataset: %s", args.dataset)
@@ -398,7 +419,7 @@ def main() -> None:
         "batch_size": args.batch_size,
         "checkpoint": args.checkpoint,
         "checkpoint_dir": args.checkpoint_dir,
-        "data_dir": args.data_dir,
+        "data_dir": args.data_dir or defaults.data_dir,
         "dataset": args.dataset,
         "device": str(device),
         "epochs": args.epochs,
@@ -427,13 +448,13 @@ def main() -> None:
     log_configurations(logger, dict(sorted(config_dump.items())))
 
     if args.tune:
-        tune_hyperparameters(args, logger, device)
+        results = tune_hyperparameters(args, logger, device)
     elif args.eval_only and not args.exp_name and not args.checkpoint:
         raise SystemExit(
             "eval_only 모드에서는 --exp_name 또는 --checkpoint 를 지정해야 합니다."
         )
     else:
-        run_training(
+        results = run_training(
             args,
             logger,
             device,
@@ -445,6 +466,84 @@ def main() -> None:
         )
 
     logger.info("Experiment finished")
+    return results
+
+
+def main() -> None:
+    args = parse_args()
+    device = resolve_device(args.device)
+
+    if args.all_smd_machines:
+        data_dir = args.data_dir or get_dataset_defaults("SMD").data_dir
+        machines = list_smd_machines(data_dir)
+        if not machines:
+            raise SystemExit(
+                f"No machine-* files under {data_dir}. "
+                "Run: python scripts/preprocess_data.py --dataset SMD "
+                "--raw_dir <ServerMachineDataset> --output_dir data/SMD"
+            )
+        if args.tune:
+            raise SystemExit("--all_smd_machines 와 --tune 은 함께 쓸 수 없습니다.")
+
+        summary_name = f"smd_all_machines_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        summary_logger = setup_logger(
+            name="thoc.smd_all",
+            log_dir=args.log_dir,
+            exp_name=summary_name,
+            level=getattr(logging, args.log_level),
+        )
+        summary_logger.info(
+            "Training all SMD machines | count=%d | data_dir=%s",
+            len(machines),
+            data_dir,
+        )
+        summary_logger.info("Machines: %s", ", ".join(machines))
+
+        summary_rows: list[dict] = []
+        for idx, machine in enumerate(machines, start=1):
+            summary_logger.info("=== [%d/%d] %s ===", idx, len(machines), machine)
+            machine_args = argparse.Namespace(**vars(args))
+            machine_args.dataset = machine
+            machine_args.exp_name = None  # machine 별 새 exp
+            machine_args.all_smd_machines = False
+            try:
+                results = run_single_experiment(machine_args, device=device)
+                row = {
+                    "machine": machine,
+                    "status": "ok",
+                    "f1_pa": None if results is None else results.get("f1_pa"),
+                    "auroc": None if results is None else results.get("auroc"),
+                    "auprc": None if results is None else results.get("auprc"),
+                    "threshold": None if results is None else results.get("threshold"),
+                }
+            except Exception as exc:  # noqa: BLE001 — 머신별 실패 시 다음으로
+                summary_logger.exception("Failed on %s: %s", machine, exc)
+                row = {
+                    "machine": machine,
+                    "status": f"error: {exc}",
+                    "f1_pa": None,
+                    "auroc": None,
+                    "auprc": None,
+                    "threshold": None,
+                }
+            summary_rows.append(row)
+
+        summary_path = os.path.join(args.output_dir, summary_name, "smd_machine_summary.json")
+        save_json(summary_path, summary_rows)
+        summary_logger.info("SMD machine summary saved: %s", summary_path)
+        for row in summary_rows:
+            summary_logger.info(
+                "%s | status=%s | f1_pa=%s | auroc=%s | auprc=%s",
+                row["machine"],
+                row["status"],
+                row["f1_pa"],
+                row["auroc"],
+                row["auprc"],
+            )
+        summary_logger.info("Experiment finished")
+        return
+
+    run_single_experiment(args, device=device)
 
 
 if __name__ == "__main__":

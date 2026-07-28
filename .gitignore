@@ -29,3 +29,8 @@ paper/
 .env
 .env.*
 *.pem
+
+logs/
+results/
+viz_gt/
+viz_pred/

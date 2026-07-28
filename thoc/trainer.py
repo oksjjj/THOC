@@ -46,6 +46,7 @@ class TrainConfig:
     log_dir: str = "./logs"
     exp_name: str = "thoc"
     output_dir: str = "./outputs"
+    dataset: str | None = None
     threshold_method: ThresholdMethod = "best_f1_pa"
     n_threshold_steps: int = 500
     # 추론: validation 에서 고른 threshold 로 test 전체 평가 (논문 §4.2)
@@ -256,6 +257,7 @@ class THOCTrainer:
             scores,
             threshold=threshold,
             threshold_method=self.config.threshold_method,
+            compute_ranking=False,
         )
 
     @torch.no_grad()
@@ -300,6 +302,7 @@ class THOCTrainer:
             labels,
             scores,
             threshold=test_threshold,
+            compute_ranking=False,
         )
         extra["test_best_f1_pa_threshold"] = test_threshold
         extra["test_best_f1_pa_metrics"] = {
@@ -311,6 +314,11 @@ class THOCTrainer:
                 "f1_pa",
                 "precision_pa",
                 "recall_pa",
+                "tp",
+                "tn",
+                "fp",
+                "fn",
+                "latency",
             )
         }
 
@@ -337,6 +345,9 @@ class THOCTrainer:
             threshold=threshold,
             threshold_method=self.config.threshold_method,
             n_threshold_steps=self.config.n_threshold_steps,
+            save_dir=self.config.output_dir,
+            dataset=self.config.dataset or self.config.exp_name,
+            logger=self.logger,
         )
         results["threshold_source"] = threshold_source
 
@@ -399,6 +410,18 @@ class THOCTrainer:
         results_path = os.path.join(self.config.output_dir, "results.json")
         save_json(results_path, {**results, **extra})
         self.logger.info("Results saved: %s", results_path)
+
+        # 시각화 / 재평가용 score·라벨·시계열 저장 (OmniAnomaly test_score.pkl 대응)
+        score_path = os.path.join(self.config.output_dir, "test_score.npy")
+        label_path = os.path.join(self.config.output_dir, "test_label.npy")
+        series_path = os.path.join(self.config.output_dir, "test_x.npy")
+        np.save(score_path, np.asarray(scores, dtype=np.float32))
+        np.save(label_path, np.asarray(labels, dtype=np.int64))
+        np.save(series_path, np.asarray(self.test_loader.dataset.x, dtype=np.float32))
+        self.logger.info("Test scores saved: %s", score_path)
+        self.logger.info("Test labels saved: %s", label_path)
+        self.logger.info("Test series saved: %s", series_path)
+
         return results
 
     @torch.no_grad()

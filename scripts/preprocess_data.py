@@ -27,13 +27,15 @@ SMAP / MSL (NASA):
 ────────────────────────────────────────────────────────────
 
 SMD:
-  SMD_train.pkl, SMD_test.pkl, SMD_test_label.pkl
-  (+ machine별 개별 pkl)
+  SMD_train.npy/.pkl, SMD_test.npy/.pkl, SMD_test_label.npy/.pkl
+  (+ machine별 개별 npy/pkl)
 
 SMAP:
-  SMAP_train.pkl, SMAP_test.pkl, SMAP_test_label.pkl
+  SMAP_train.npy/.pkl, SMAP_test.npy/.pkl, SMAP_test_label.npy/.pkl
 
 사용 예:
+  python scripts/preprocess_data.py --dataset SMD \\
+      --raw_dir ServerMachineDataset --output_dir data/SMD
   python scripts/preprocess_data.py --dataset SMAP --raw_dir data --output_dir data/SMAP
 """
 
@@ -48,13 +50,15 @@ import pickle
 import numpy as np
 
 
-def save_pickle(path: str, data: np.ndarray) -> None:
-    """numpy 배열을 pickle 파일로 저장하고 shape 를 출력한다."""
-    # output_dir 이 아직 없으면 생성
-    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
-    with open(path, "wb") as file:
+def save_array(path_stem: str, data: np.ndarray) -> None:
+    """numpy 배열을 .npy + .pkl 로 저장하고 shape 를 출력한다."""
+    os.makedirs(os.path.dirname(path_stem) or ".", exist_ok=True)
+    npy_path = f"{path_stem}.npy"
+    pkl_path = f"{path_stem}.pkl"
+    np.save(npy_path, data)
+    with open(pkl_path, "wb") as file:
         pickle.dump(data, file)
-    print(f"Saved {path} | shape={data.shape}")
+    print(f"Saved {npy_path} / {pkl_path} | shape={data.shape}")
 
 
 def preprocess_smd(raw_dir: str, output_dir: str) -> None:
@@ -90,15 +94,18 @@ def preprocess_smd(raw_dir: str, output_dir: str) -> None:
             path = os.path.join(raw_dir, split, filename)
             # CSV 형식 txt → float32 배열 (시점 × 38차원)
             data = np.genfromtxt(path, dtype=np.float32, delimiter=",")
-            # machine 단위 개별 pkl (디버깅·개별 분석용)
-            save_pickle(os.path.join(output_dir, f"{machine_id}_{split}.pkl"), data)
+            # machine 단위 개별 저장 (디버깅·개별 분석용)
+            save_array(os.path.join(output_dir, f"{machine_id}_{split}"), data)
             container.append(data)
 
     # 28개 machine 을 순서대로 이어 붙인 전체 배열
-    # thoc/data.py 의 SMD_train.npy 와 동일한 concat 형태
-    save_pickle(os.path.join(output_dir, "SMD_train.pkl"), np.asarray(train_parts))
-    save_pickle(os.path.join(output_dir, "SMD_test.pkl"), np.asarray(test_parts))
-    save_pickle(os.path.join(output_dir, "SMD_test_label.pkl"), np.asarray(label_parts))
+    # thoc/data.py 의 load_smd 가 읽는 SMD_*.npy 와 동일 형태
+    save_array(os.path.join(output_dir, "SMD_train"), np.concatenate(train_parts, axis=0))
+    save_array(os.path.join(output_dir, "SMD_test"), np.concatenate(test_parts, axis=0))
+    save_array(
+        os.path.join(output_dir, "SMD_test_label"),
+        np.concatenate(label_parts, axis=0).astype(np.int64),
+    )
 
 
 def preprocess_smap_msl(dataset: str, raw_dir: str, output_dir: str) -> None:
@@ -136,13 +143,16 @@ def preprocess_smap_msl(dataset: str, raw_dir: str, output_dir: str) -> None:
             np.load(os.path.join(raw_dir, split, f"{row[0]}.npy"))
             for row in data_info  # 채널 순서 = data_info 정렬 순서
         ]
-        # np.asarray(chunks) → (총시점, 25) 형태의 하나의 긴 시계열
-        save_pickle(os.path.join(output_dir, f"{dataset}_{split}.pkl"), np.asarray(chunks))
+        # concatenate → (총시점, channels) 형태의 하나의 긴 시계열
+        save_array(
+            os.path.join(output_dir, f"{dataset}_{split}"),
+            np.concatenate(chunks, axis=0),
+        )
 
     # ── [3] 채널별 라벨을 이어 붙여 전체 test 라벨 생성 ───────────────
-    save_pickle(
-        os.path.join(output_dir, f"{dataset}_test_label.pkl"),
-        np.asarray(np.concatenate(labels)),
+    save_array(
+        os.path.join(output_dir, f"{dataset}_test_label"),
+        np.concatenate(labels, axis=0).astype(np.int64),
     )
 
 

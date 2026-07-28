@@ -145,9 +145,11 @@ def _centered_banner(title: str, char: str = "=", width: int = _BANNER_WIDTH) ->
 
 def _format_kv_lines(
     items: dict[str, Any] | list[tuple[str, Any]],
-    key_width: int = 16,
+    key_width: int = 12,
 ) -> list[str]:
-    pairs = items.items() if isinstance(items, dict) else items
+    pairs = list(items.items()) if isinstance(items, dict) else list(items)
+    if pairs:
+        key_width = max(key_width, max(len(str(k)) for k, _ in pairs))
     lines: list[str] = []
     for key, value in pairs:
         if key == "Threshold" and isinstance(value, (float, int)):
